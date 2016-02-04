@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pr2</string>
+    <string name="title_activity_result_detail">ResultDetailActivity</string>
+    <string name="search_hint">Search for a player</string>
+
+    <string name="TomBradyBio">Tom Brady was born </string>
+</resources>
