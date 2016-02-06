@@ -26,14 +26,14 @@ public class CustomArrayAdapter extends ArrayAdapter<Player> {
 
         Player currentPlayer = mListOfPlayers.get(position);
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.roster_entry,parent);
+        View view = inflater.inflate(R.layout.roster_entry,parent,false);
 
         TextView name = (TextView)view.findViewById(R.id.xmlPlayerName);
         TextView pos = (TextView)view.findViewById(R.id.xmlPlayerPos);
         TextView team = (TextView)view.findViewById(R.id.xmlPlayerTeam);
-        name.setText(currentPlayer.getmName().toString());
-        pos.setText(currentPlayer.getmPosition().toString());
-        team.setText(currentPlayer.getmTeam().toString());
+        name.setText(currentPlayer.getmName());
+        pos.setText(currentPlayer.getmPosition());
+        team.setText(currentPlayer.getmTeam());
 
         return view;
     }

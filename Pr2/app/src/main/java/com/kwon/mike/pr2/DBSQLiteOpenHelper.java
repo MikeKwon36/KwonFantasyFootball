@@ -43,6 +43,9 @@ public class DBSQLiteOpenHelper extends SQLiteOpenHelper {
 
         String tombradybio = context.getResources().getString(R.string.TomBradyBio);
         addPlayer("Tom Brady", "Quarterback", "New England Patriots",tombradybio,R.drawable.tombradypng);
+        addPlayer("Cam Newton", "Quarterback", "Carolina Panthers",tombradybio, R.drawable.camnewton);
+        addPlayer("Peyton Manning", "Quarterback", "Denver Broncos",tombradybio,R.drawable.peyton);
+        addPlayer("Mike Kwon", "Wide Receiver", "Rochester Yellowjackets",tombradybio,R.drawable.tombradypng);
     }
 
     @Override
@@ -75,7 +78,7 @@ public class DBSQLiteOpenHelper extends SQLiteOpenHelper {
     public long addPlayer(String pName, String pPosition, String pTeam, String pBio, int pImageRef){
         String name = pName.toUpperCase();
         String position = pPosition.toUpperCase();
-        String team = pPosition.toUpperCase();
+        String team = pTeam.toUpperCase();
         ContentValues values = new ContentValues();
         values.put(COL_NAME, name);
         values.put(COL_POSITION, position);
@@ -98,7 +101,12 @@ public class DBSQLiteOpenHelper extends SQLiteOpenHelper {
         db.close();
         return deleteNum;
     }
-
+    //Search for a player by id
+    public Cursor searchPlayerByid(int query){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, TABLE_COLUMNS, COL_ID + " = " + query, null, null, null, null, null);
+        return cursor;
+    }
     //Search for a player by name
     public Cursor searchPlayerByName(String query){
         String name = query.toUpperCase();
