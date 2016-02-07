@@ -39,7 +39,7 @@
                 android:textStyle="bold"
                 android:textColor="#10e2ed"
                 android:textSize="20sp"
-                android:text="Fantasy Squad"></TextView>
+                android:text="Fantasy Squad"/>
             <TextView
                 android:id="@+id/xmlSearchTitle"
                 android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                 android:textStyle="bold"
                 android:textColor="#10e2ed"
                 android:textSize="20sp"
-                android:text="Search Results"></TextView>
+                android:text="Search Results"/>
         </LinearLayout>
 
         <LinearLayout
@@ -60,12 +60,12 @@
                 android:id="@+id/xmlFantasyRosterListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></ListView>
+                android:layout_weight="1"/>
             <ListView
                 android:id="@+id/xmlSearchListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></ListView>
+                android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
 

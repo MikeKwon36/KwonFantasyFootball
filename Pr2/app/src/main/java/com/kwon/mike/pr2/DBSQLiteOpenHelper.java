@@ -26,27 +26,13 @@ public class DBSQLiteOpenHelper extends SQLiteOpenHelper {
     public static final String[] TABLE_COLUMNS = {COL_ID,COL_NAME,COL_POSITION,COL_TEAM,COL_BIO,COL_IMAGE};
 
     private static final String CREATE_SHOPPING_LIST_TABLE =
-            "CREATE TABLE " + TABLE_NAME + "(" +
+            "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" +
                     COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COL_NAME + " TEXT, " +
                     COL_POSITION + " TEXT, " +
                     COL_TEAM + " TEXT, " +
                     COL_BIO + " TEXT, " +
                     COL_IMAGE + " INTEGER)";
-
-    //Singleton database instance
-    private static DBSQLiteOpenHelper mInstance;
-
-    //Singleton database constructor set to private + code to populate database
-    private DBSQLiteOpenHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
-        String tombradybio = context.getResources().getString(R.string.TomBradyBio);
-        addPlayer("Tom Brady", "Quarterback", "New England Patriots",tombradybio,R.drawable.tombradypng);
-        addPlayer("Cam Newton", "Quarterback", "Carolina Panthers",tombradybio, R.drawable.camnewton);
-        addPlayer("Peyton Manning", "Quarterback", "Denver Broncos",tombradybio,R.drawable.peyton);
-        addPlayer("Mike Kwon", "Wide Receiver", "Rochester Yellowjackets",tombradybio,R.drawable.tombradypng);
-    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -59,7 +45,24 @@ public class DBSQLiteOpenHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    //Method to retrieve Singleton database instance uses application context in constructor (since individual activity contexts are not applicable)
+    //Singleton database instance
+    private static DBSQLiteOpenHelper mInstance;
+
+    //Singleton database constructor set to private + code to populate database
+    private DBSQLiteOpenHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        addPlayer("Tom Brady", "Quarterback", "New England Patriots",context.getResources().getString(R.string.TomBradyBio),R.drawable.tombradypng);
+        addPlayer("Cam Newton", "Quarterback", "Carolina Panthers",context.getResources().getString(R.string.CamBio),R.drawable.camnewton);
+        addPlayer("Peyton Manning", "Quarterback", "Denver Broncos",context.getResources().getString(R.string.PeytonBio),R.drawable.peyton);
+        addPlayer("Mike Kwon", "Wide Receiver", "Rochester Yellowjackets",context.getResources().getString(R.string.KwonBio),R.drawable.kwon);
+        addPlayer("Brandon Marshall", "Wide Receiver", "New York Jets",context.getResources().getString(R.string.BrandonBio),R.drawable.marshall);
+        addPlayer("Antonio Brown", "Wide Receiver", "Pittsburgh Steelers",context.getResources().getString(R.string.AntonioBio),R.drawable.antonio_brown);
+        addPlayer("Adrian Peterson", "Running Back", "Minnesota Vikings",context.getResources().getString(R.string.APBio),R.drawable.ap);
+        addPlayer("Doug Martin", "Running Back", "Tampa Bay Buccaneers",context.getResources().getString(R.string.DougBio),R.drawable.dougmartin);
+        addPlayer("Todd Gurley", "Running Back", "Los Angeles Rams",context.getResources().getString(R.string.GurleyBio),R.drawable.gurley);
+    }
+
+    //Method to retrieve Singleton database uses application context in constructor (since individual activity contexts are not applicable)
     public static DBSQLiteOpenHelper getInstance (Context context){
         if(mInstance == null){
             mInstance = new DBSQLiteOpenHelper(context.getApplicationContext());
@@ -67,14 +70,14 @@ public class DBSQLiteOpenHelper extends SQLiteOpenHelper {
         return mInstance;
     }
 
-    //Method to return full list of players
+    //Method to return a cursor populated with the full list of players
     public Cursor getPlayerList(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME,TABLE_COLUMNS,null,null,null,null,null,null);
         return cursor;
     }
 
-    //Add new player to database
+    //Method to add a new player to the database
     public long addPlayer(String pName, String pPosition, String pTeam, String pBio, int pImageRef){
         String name = pName.toUpperCase();
         String position = pPosition.toUpperCase();
@@ -101,33 +104,30 @@ public class DBSQLiteOpenHelper extends SQLiteOpenHelper {
         db.close();
         return deleteNum;
     }
-    //Search for a player by id
+    //Search for a player by database id
     public Cursor searchPlayerByid(int query){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, TABLE_COLUMNS, COL_ID + " = " + query, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, TABLE_COLUMNS, COL_ID + " = " + query,
+                null, null, null, null, null);
         return cursor;
     }
     //Search for a player by name
     public Cursor searchPlayerByName(String query){
         String name = query.toUpperCase();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, TABLE_COLUMNS, COL_NAME + " LIKE ?", new String[]{"%" + name + "%"}, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, TABLE_COLUMNS, COL_NAME + " LIKE ?",
+                new String[]{"%" + name + "%"}, null, null, null, null);
         return cursor;
     }
 
-    //Search for a player by team
-    public Cursor searchPlayerByTeam(String query){
-        String team = query.toUpperCase();
+    //Search for a player by Name OR Team OR Position
+    public Cursor searchPlayerByNameTeamPosition(String query){
+        String search = query.toUpperCase();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME,TABLE_COLUMNS,COL_TEAM + " LIKE ?", new String[]{"%" + team + "%"},null,null,null,null);
-        return cursor;
-    }
-
-    //Search for a player by position
-    public Cursor searchPlayerByPosition(String query){
-        String position = query.toUpperCase();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME,TABLE_COLUMNS,COL_POSITION + " LIKE ?", new String[]{"%" + position + "%"},null,null,null,null);
+        Cursor cursor = db.query(TABLE_NAME,TABLE_COLUMNS,COL_NAME + " LIKE "+ "'%" + search + "%'"
+                        +" OR " + COL_TEAM + " LIKE "+ "'%" + search + "%'"
+                        +" OR " + COL_POSITION + " LIKE "+ "'%" + search + "%'",
+                null,null,null,null,null);
         return cursor;
     }
 }
