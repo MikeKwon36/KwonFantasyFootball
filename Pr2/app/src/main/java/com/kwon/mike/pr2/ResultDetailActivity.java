@@ -43,7 +43,7 @@ public class ResultDetailActivity extends AppCompatActivity {
         mCurrentRoster = new String[FantasyFootballRosterA.getInstance().getFullRosterA().size()];
         for (int i = 0; i < FantasyFootballRosterA.getInstance().getFullRosterA().size(); i++) {
             mCurrentRoster[i] = FantasyFootballRosterA.getInstance().getFullRosterA().get(i).getmName()
-                    + " " + FantasyFootballRosterA.getInstance().getFullRosterA().get(i).getmPosition();
+                    + " - " + FantasyFootballRosterA.getInstance().getFullRosterA().get(i).getmPosition();
         }
 
         //Detail Screen populated based on either player ID or player name received
