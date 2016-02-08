@@ -1,22 +1,24 @@
 <resources>
-    <string name="app_name">Pr2</string>
+    <string name="app_name">Project2</string>
     <string name="title_activity_result_detail">ResultDetailActivity</string>
     <string name="search_hint">Search for a player</string>
 
     <string name="mainAppTitleTV">Kwon Fantasy Football</string>
-    <string name="mainFantasyRosterTitleTV">Fantasy Roster</string>
-    <string name="mainSearchResultsTitleTV">Players</string>
+    <string name="mainFantasyRosterTitleTV">ROSTER</string>
+    <string name="mainSearchResultsTitleTV">PLAYERS</string>
 
     <string name="toastPlayerDuplicate">Player already on roster!</string>
     <string name="toastPositionTaken">Position already taken!</string>
     <string name="toastRemovePlayerInstructions">Player added! Long-click to remove</string>
     <string name="toastPlayerRemoved">Player removed from roster</string>
+    <string name="toastResetRoster">Roster reset!</string>
+    <string name="toastResetSearch">List reset!</string>
 
-    <string name="alertDialogTitle">Current Fantasy Roster</string>
+    <string name="alertDialogTitle">Current Roster</string>
     <string name="alertDialogBackButton">Go back to Player Details</string>
 
-    <string name="googleSearchString">http://www.google.com/#q=Stats for</string>
-    <string name="GoogleSearchButton">Google player</string>
+    <string name="googleSearchString">http://www.google.com/search?q=Season stats for</string>
+    <string name="GoogleSearchButton">Check Stats</string>
 
     <string name="CheckRosterButton">Check Roster</string>
 

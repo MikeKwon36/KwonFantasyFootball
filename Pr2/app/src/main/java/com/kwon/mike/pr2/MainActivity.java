@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         mRosterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this,ResultDetailActivity.class);
+                Intent intent = new Intent(MainActivity.this, ResultDetailActivity.class);
                 intent.putExtra("Name", FantasyFootballRosterA.getInstance().getPlayerA(position).getmName());
                 startActivity(intent);
             }
@@ -97,6 +97,26 @@ public class MainActivity extends AppCompatActivity {
                 mFFBRosterArrayAdapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this,getResources().getString(R.string.toastPlayerRemoved), Toast.LENGTH_SHORT).show();
                 return true;
+            }
+        });
+
+        //Clicking the search results title will reset the list of available players
+        mSearchTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCursor = mHelper.getPlayerList();
+                mCursorAdapter.swapCursor(mCursor);
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.toastResetSearch), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Clicking the roster title will reset the fantasy roster
+        mRosterTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FantasyFootballRosterA.getInstance().getFullRosterA().clear();
+                mFFBRosterArrayAdapter.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.toastResetRoster), Toast.LENGTH_SHORT).show();
             }
         });
 
