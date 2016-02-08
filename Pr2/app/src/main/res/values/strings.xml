@@ -3,11 +3,21 @@
     <string name="title_activity_result_detail">ResultDetailActivity</string>
     <string name="search_hint">Search for a player</string>
 
-    <string name="alertDialogTitle">Current Fantasy Roster</string>
-    <string name="DialogBackButton">Go back to Player Details</string>
-    <string name="googleSearchString">http://www.google.com/#q=Stats for</string>
+    <string name="mainAppTitleTV">Kwon Fantasy Football</string>
+    <string name="mainFantasyRosterTitleTV">Fantasy Roster</string>
+    <string name="mainSearchResultsTitleTV">Players</string>
 
+    <string name="toastPlayerDuplicate">Player already on roster!</string>
+    <string name="toastPositionTaken">Position already taken!</string>
+    <string name="toastRemovePlayerInstructions">Player added! Long-click to remove</string>
+    <string name="toastPlayerRemoved">Player removed from roster</string>
+
+    <string name="alertDialogTitle">Current Fantasy Roster</string>
+    <string name="alertDialogBackButton">Go back to Player Details</string>
+
+    <string name="googleSearchString">http://www.google.com/#q=Stats for</string>
     <string name="GoogleSearchButton">Google player</string>
+
     <string name="CheckRosterButton">Check Roster</string>
 
     <string name="TomBradyBio">Thomas Edward Patrick Brady, Jr. (born August 3, 1977) is an American football quarterback
@@ -49,7 +59,7 @@
         passing, 5 touchdown passes, and over 100 yards rushing in the same game. In the final game of the 2015–16 season Newton
         tied Steve Youngs record for the most career rushing touchdowns by a quarterback—a record that Young set after 15 seasons
         in the NFL, compared to Newtons five.</string>
-    <string name="KwonBio">Michael Kwon (born Oct 15, 1983) is a student in General Assemblys Android Development Immersive.
+    <string name="KwonBio">Michael Kwon (born Oct 15, 1983) is a student in General Assembly\'s Android Development Immersive.
         He played Wide Receiver at the University of Rochester many, many, many, many, many years ago.  These days, he spends
         his time coding, drinking too much coffee, and being a bro.</string>
     <string name="AntonioBio">Antonio Brown (born July 10, 1988) is an American football wide receiver, and a punt returner

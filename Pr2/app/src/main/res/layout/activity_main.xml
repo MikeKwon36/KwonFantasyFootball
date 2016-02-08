@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
     tools:context="com.kwon.mike.pr2.MainActivity">
 
     <LinearLayout
@@ -17,17 +18,19 @@
         android:gravity="center_horizontal">
         <TextView
             android:id="@+id/xmlTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
             android:textStyle="bold"
-            android:textColor="#16aeb6"
-            android:textSize="25sp"
-            android:text="KWON FANTASY FOOTBALL" />
+            android:textColor="#10d6e1"
+            android:textSize="35sp"
+            android:text="@string/mainAppTitleTV" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="35dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
             <TextView
@@ -39,7 +42,7 @@
                 android:textStyle="bold"
                 android:textColor="#10e2ed"
                 android:textSize="20sp"
-                android:text="Fantasy Squad"/>
+                android:text="@string/mainFantasyRosterTitleTV"/>
             <TextView
                 android:id="@+id/xmlSearchTitle"
                 android:layout_width="match_parent"
@@ -49,7 +52,7 @@
                 android:textStyle="bold"
                 android:textColor="#10e2ed"
                 android:textSize="20sp"
-                android:text="Search Results"/>
+                android:text="@string/mainSearchResultsTitleTV"/>
         </LinearLayout>
 
         <LinearLayout
@@ -65,7 +68,8 @@
                 android:id="@+id/xmlSearchListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:layout_marginBottom="30dp"/>
         </LinearLayout>
     </LinearLayout>
 

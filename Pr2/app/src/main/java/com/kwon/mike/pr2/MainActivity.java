@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 FantasyFootballRosterA.getInstance().removePlayerA(position);
                 mFFBRosterArrayAdapter.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this, "Player removed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,getResources().getString(R.string.toastPlayerRemoved), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -156,16 +156,16 @@ public class MainActivity extends AppCompatActivity {
                 for (Player test : FantasyFootballRosterA.getInstance().getFullRosterA()){
                     if(test.getmName().equals(newPlayer.getmName())){
                         dupTest = true;
-                        Toast.makeText(MainActivity.this, "Player already on roster!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,getResources().getString(R.string.toastPlayerDuplicate),Toast.LENGTH_SHORT).show();
                     } else if (test.getmPosition().equals(newPlayer.getmPosition())){
                         dupTest = true;
-                        Toast.makeText(MainActivity.this, "Position already taken!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,getResources().getString(R.string.toastPositionTaken),Toast.LENGTH_SHORT).show();
                     }
                 }
                 if(!dupTest){
                     FantasyFootballRosterA.getInstance().addPlayerA(newPlayer);
                     mFFBRosterArrayAdapter.notifyDataSetChanged();
-                    Toast.makeText(MainActivity.this,"Long-click to remove player",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,getResources().getString(R.string.toastRemovePlayerInstructions),Toast.LENGTH_SHORT).show();
                 }
 
                 //Search results are reset

@@ -9,16 +9,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="#ffffff"/>
     <TextView
         android:id="@+id/xmlPlayerPos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:textColor="#ffffff"/>
     <TextView
         android:id="@+id/xmlPlayerTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:textColor="#ffffff"/>
 
 </LinearLayout>

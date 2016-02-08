@@ -94,7 +94,7 @@ public class ResultDetailActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-                builder.setNegativeButton(getResources().getString(R.string.DialogBackButton), new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(getResources().getString(R.string.alertDialogBackButton), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
