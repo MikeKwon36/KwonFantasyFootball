@@ -115,8 +115,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //onNewIntent method overridden to execute database search. If the launched intent has an
-    // "Action_Search" filter, the searchView cursor is updated.
+    //onNewIntent method overridden to execute database search which allows user to search database
+    // by three different criteria (Name, Team, OR position).  If the received intent has an
+    // "Action_Search" filter, the searchView cursor is updated to reflect the search results.
     @Override
     protected void onNewIntent(Intent intent) {
         handleIntent(intent);
@@ -133,9 +134,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // If user adds player to roster in the details activity, onActivityResult checks if player is
-    // already accounted for and whether the position is already taken.  If neither check returns
-    // true, a new player object is created and added to the roster. The method concludes by
-    // resetting the search results
+    // already accounted for and whether the position is already taken on the roster.  If neither
+    // check returns true, a new player object is created and added to the roster. The method
+    // concludes by resetting the search results.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 1){
@@ -164,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!dupTest){
                     FantasyFootballRosterA.getInstance().addPlayerA(newPlayer);
                     mFFBRosterArrayAdapter.notifyDataSetChanged();
+                    Toast.makeText(MainActivity.this,"Long-click to remove player",Toast.LENGTH_SHORT).show();
                 }
 
                 //Search results are reset
