@@ -4,8 +4,11 @@
     <string name="search_hint">Search for a player</string>
 
     <string name="alertDialogTitle">Current Fantasy Roster</string>
-    <string name="alertDialogSearchButton">Google player</string>
+    <string name="DialogBackButton">Go back to Player Details</string>
     <string name="googleSearchString">http://www.google.com/#q=Stats for</string>
+
+    <string name="GoogleSearchButton">Google player</string>
+    <string name="CheckRosterButton">Check Roster</string>
 
     <string name="TomBradyBio">Thomas Edward Patrick Brady, Jr. (born August 3, 1977) is an American football quarterback
         for the New England Patriots of the National Football League (NFL). After playing college football for the University of Michigan,

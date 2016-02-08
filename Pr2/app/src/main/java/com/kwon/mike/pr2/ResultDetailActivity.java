@@ -21,7 +21,7 @@ public class ResultDetailActivity extends AppCompatActivity {
     ImageView mImage;
     DBSQLiteOpenHelper mHelper;
     Cursor mCursor;
-    Button mCheckRosterButton;
+    Button mCheckRosterButton, mGooglePlayerButton;
     String[] mCurrentRoster;
 
     @Override
@@ -35,13 +35,15 @@ public class ResultDetailActivity extends AppCompatActivity {
         mBio = (TextView) findViewById(R.id.xmlDetailBio);
         mImage = (ImageView) findViewById(R.id.xmlDetailImage);
         mCheckRosterButton = (Button) findViewById(R.id.xmlCheckRosterButton);
+        mGooglePlayerButton = (Button) findViewById(R.id.xmlGooglePlayerButton);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         mHelper = DBSQLiteOpenHelper.getInstance(ResultDetailActivity.this);
 
         //transitory array to show the current list of players on your fantasy roster
         mCurrentRoster = new String[FantasyFootballRosterA.getInstance().getFullRosterA().size()];
         for (int i = 0; i < FantasyFootballRosterA.getInstance().getFullRosterA().size(); i++) {
-            mCurrentRoster[i] = FantasyFootballRosterA.getInstance().getFullRosterA().get(i).getmName();
+            mCurrentRoster[i] = FantasyFootballRosterA.getInstance().getFullRosterA().get(i).getmName()
+                    + " " + FantasyFootballRosterA.getInstance().getFullRosterA().get(i).getmPosition();
         }
 
         //Detail Screen populated based on either player ID or player name received
@@ -76,7 +78,7 @@ public class ResultDetailActivity extends AppCompatActivity {
             }
         });
 
-        //Button to display current fantasy roster, with an option to get additional detail on the player
+        //Button to display current fantasy roster
         mCheckRosterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,16 +90,7 @@ public class ResultDetailActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-                builder.setPositiveButton(getResources().getString(R.string.alertDialogSearchButton), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String googleSearch = getResources().getString(R.string.googleSearchString);
-                        Uri uri = Uri.parse(googleSearch + " " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_NAME)));
-                        Intent search = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(search);
-                    }
-                });
-                builder.setNegativeButton("Go back", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(getResources().getString(R.string.DialogBackButton), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -105,6 +98,17 @@ public class ResultDetailActivity extends AppCompatActivity {
                 });
                 Dialog dialog = builder.create();
                 dialog.show();
+            }
+        });
+
+        //Button to google information on the player
+        mGooglePlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String googleSearch = getResources().getString(R.string.googleSearchString);
+                Uri uri = Uri.parse(googleSearch + " " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_NAME)));
+                Intent search = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(search);
             }
         });
     }
