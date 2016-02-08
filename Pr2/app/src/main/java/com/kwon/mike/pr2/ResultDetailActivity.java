@@ -1,14 +1,17 @@
 package com.kwon.mike.pr2;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +21,8 @@ public class ResultDetailActivity extends AppCompatActivity {
     ImageView mImage;
     DBSQLiteOpenHelper mHelper;
     Cursor mCursor;
+    Button mCheckRosterButton;
+    String[] mCurrentRoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +34,15 @@ public class ResultDetailActivity extends AppCompatActivity {
         mTeam = (TextView) findViewById(R.id.xmlDetailTeam);
         mBio = (TextView) findViewById(R.id.xmlDetailBio);
         mImage = (ImageView) findViewById(R.id.xmlDetailImage);
+        mCheckRosterButton = (Button) findViewById(R.id.xmlCheckRosterButton);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         mHelper = DBSQLiteOpenHelper.getInstance(ResultDetailActivity.this);
+
+        //transitory array to show the current list of players on your fantasy roster
+        mCurrentRoster = new String[FantasyFootballRosterA.getInstance().getFullRosterA().size()];
+        for (int i = 0; i < FantasyFootballRosterA.getInstance().getFullRosterA().size(); i++) {
+            mCurrentRoster[i] = FantasyFootballRosterA.getInstance().getFullRosterA().get(i).getmName();
+        }
 
         //Detail Screen populated based on either player ID or player name received
         final int databaseID = getIntent().getIntExtra("id", -1);
@@ -61,6 +73,38 @@ public class ResultDetailActivity extends AppCompatActivity {
                 intent.putExtra("id", databaseID);
                 setResult(RESULT_OK,intent);
                 finish();
+            }
+        });
+
+        //Button to display current fantasy roster, with an option to get additional detail on the player
+        mCheckRosterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ResultDetailActivity.this);
+                builder.setTitle(getResources().getString(R.string.alertDialogTitle));
+                builder.setItems(mCurrentRoster, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setPositiveButton(getResources().getString(R.string.alertDialogSearchButton), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String googleSearch = getResources().getString(R.string.googleSearchString);
+                        Uri uri = Uri.parse(googleSearch + " " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_NAME)));
+                        Intent search = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(search);
+                    }
+                });
+                builder.setNegativeButton("Go back", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                Dialog dialog = builder.create();
+                dialog.show();
             }
         });
     }

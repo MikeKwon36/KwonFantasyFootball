@@ -104,6 +104,7 @@ public class DBSQLiteOpenHelper extends SQLiteOpenHelper {
         db.close();
         return deleteNum;
     }
+
     //Search for a player by database id
     public Cursor searchPlayerByid(int query){
         SQLiteDatabase db = this.getReadableDatabase();
