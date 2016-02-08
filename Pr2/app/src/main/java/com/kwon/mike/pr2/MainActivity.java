@@ -19,11 +19,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
     TextView mTitle, mRosterTitle, mSearchTitle;
@@ -126,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         handleIntent(intent);
     }
-    private void handleIntent(Intent intent) {
+    public void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             mCursor = mHelper.searchPlayerByNameTeamPosition(query);
@@ -155,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 newPlayer.setmBio(cursor.getString(cursor.getColumnIndex(DBSQLiteOpenHelper.COL_BIO)));
                 newPlayer.setmImage(cursor.getInt(cursor.getColumnIndex(DBSQLiteOpenHelper.COL_IMAGE)));
 
-                //roster test to see if player OR position is already accounted for
+                //roster tested to see if player OR position is already accounted for
                 boolean dupTest = false;
                 for (Player test : FantasyFootballRosterA.getInstance().getFullRosterA()){
                     if(test.getmName().equals(newPlayer.getmName())){
