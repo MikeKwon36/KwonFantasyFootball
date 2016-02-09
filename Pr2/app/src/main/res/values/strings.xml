@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Project2</string>
+    <string name="app_name">Fantasy Football App</string>
     <string name="title_activity_result_detail">ResultDetailActivity</string>
     <string name="search_hint">Search for a player</string>
 
     <string name="mainAppTitleTV">Kwon Fantasy Football</string>
-    <string name="mainFantasyRosterTitleTV">ROSTER-1</string>
-    <string name="mainFantasyRoster2TitleTV">ROSTER-2</string>
+    <string name="mainFantasyRosterTitleTV">ROSTER A</string>
+    <string name="mainFantasyRoster2TitleTV">ROSTER B</string>
     <string name="mainSearchResultsTitleTV">PLAYERS</string>
 
     <string name="toastPlayerDuplicate">Player already drafted!</string>
@@ -76,7 +76,7 @@
         in the NFL, compared to Newtons five.</string>
     <string name="KwonBio">Michael Kwon (born Oct 15, 1983) is a student in General Assembly\'s Android Development Immersive.
         He played Wide Receiver at the University of Rochester many, many, many, many, many years ago.  These days, he spends
-        his time coding, drinking too much coffee, and being a bro.</string>
+        his time coding, drinking too much coffee, and being a coding bro.</string>
     <string name="AntonioBio">Antonio Brown (born July 10, 1988) is an American football wide receiver, and a punt returner
         for the Pittsburgh Steelers of the National Football League (NFL). He was drafted by the Steelers in the sixth round
         of the 2010 NFL Draft. He played college football at Central Michigan, where he was named a first-team All-American

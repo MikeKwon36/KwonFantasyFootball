@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     ListView mSearchListView;
     ArrayAdapter<Player> mFFBRosterArrayAdapterA, mFFBRosterArrayAdapterB;
     CursorAdapter mCursorAdapter;
-
     Random mGameEngine;
     SharedPreferences mPrefs;
     int mRequestCode;
@@ -54,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         mGameEngine = new Random();
         mRequestCode = 0;
 
-        //GameEngine TextView cycles through player turns and initiates GameEngineActivity when requirements fulfilled
-        mGameEngineTitle.setText("<Click here to flip coin>");
+        //GameEngine TextView cycles through player turns and initiates GameEngineActivity
+        // when roster requirements are fulfilled
         mGameEngineTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,11 +62,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Singleton ArrayLists used to store all players selected by the user for their fantasy rosters
+        //Singleton ArrayLists used to store all players drafted for both fantasy rosters and
+        // displayed in spinners (artificial player used in index 0 to prevent Spinner from
+        // automatically initiating OnItemSelectListener on first player drafted
         mFFBRosterArrayAdapterA = new ArrayAdapter<Player>(MainActivity.this,android.R.layout.simple_spinner_item,FantasyFootballRosterA.getInstance().getFullRosterA());
         mFFBRosterArrayAdapterA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mRosterASpinner.setAdapter(mFFBRosterArrayAdapterA);
-
         mFFBRosterArrayAdapterB = new ArrayAdapter<Player>(MainActivity.this,android.R.layout.simple_spinner_item,FantasyFootballRosterB.getInstance().getFullRosterB());
         mFFBRosterArrayAdapterB.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mRosterBSpinner.setAdapter(mFFBRosterArrayAdapterB);
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         mHelper = DBSQLiteOpenHelper.getInstance(MainActivity.this);
         mCursor = mHelper.getPlayerList();
 
-        //Using the helper's database connection, the cursor adapter shows the database search results
+        //Using the DBhelper's open database connection, cursor adapter displays database search results
         mCursorAdapter = new CursorAdapter(MainActivity.this,mCursor,0) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup parent) {
@@ -112,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //OnItemClick listener aligns player object selected in RosterArray with Database file via
+        //OnItemSelectedListener aligns player objects selected in Spinners with Database via
         // name (instead of id), and uses startActivity instead of startActivityForResult to
-        // prevent re-adding a current player again
+        // prevent re-adding a drafted player again
         mRosterASpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -140,13 +139,12 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
-        //Clicking the search results title will reset the list of available players
+        //Clicking the search results title TextView will reset the list of searchable players
         mSearchTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         handleIntent(getIntent());
     }
 
-    // Creates a SearchView interface and associates searchable configuration with it
+    //Creates a SearchView interface and associates searchable configuration with it
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -175,9 +173,7 @@ public class MainActivity extends AppCompatActivity {
     // by three different criteria (Name, Team, OR position).  If the received intent has an
     // "Action_Search" filter, the searchView cursor is updated to reflect the search results.
     @Override
-    protected void onNewIntent(Intent intent) {
-        handleIntent(intent);
-    }
+    protected void onNewIntent(Intent intent) {handleIntent(intent);}
     public void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
@@ -189,10 +185,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // If user adds player to roster in the details activity, onActivityResult checks if player is
-    // already accounted for and whether the position is already taken on the roster.  If neither
-    // check returns true, a new player object is created and added to the roster. The method
-    // concludes by resetting the search results.
+    // If user adds player to roster via ResultDetailActivity, onActivityResult checks if player has
+    // already been drafted and if the position is already taken on their roster.  If neither
+    // check returns true, a new player object is created & added to the roster. The method
+    // concludes by updating the player turn via RequestCode and resetting the search results.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 1){
@@ -234,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
                         && FantasyFootballRosterA.getInstance().getFullRosterA().size()==4) {
-                    mGameEngineTitle.setText("<Click to start game!>");
+                    mGameEngineTitle.setText("<-Click to start game!->");
                     mRequestCode = 3;
                     SharedPreferences.Editor editor = mPrefs.edit();
                     editor.putInt("prefs",mRequestCode);
@@ -287,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
                         && FantasyFootballRosterA.getInstance().getFullRosterA().size()==4){
-                    mGameEngineTitle.setText("<Click to start game!>");
+                    mGameEngineTitle.setText("<-Rosters ready, click to Kick-off!->");
                     mRequestCode = 3;
                     SharedPreferences.Editor editor = mPrefs.edit();
                     editor.putInt("prefs",mRequestCode);
@@ -301,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //onResume overridden to save the RequestCode in sharedPreferences to preserve the player turn
     @Override
     protected void onResume() {
         super.onResume();
@@ -322,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //GameEngineMethod called when GameEngineTextView clicked to start draft & launch GameActivity
     public void gameEngineFacilitator(){
         if(mRequestCode==0){
             int coinFlip = mGameEngine.nextInt(2);
@@ -343,6 +341,5 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this,GameEngineActivity.class);
             startActivity(intent);
         }
-
     }
 }

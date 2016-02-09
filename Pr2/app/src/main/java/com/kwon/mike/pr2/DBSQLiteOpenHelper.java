@@ -13,18 +13,14 @@ public class DBSQLiteOpenHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "PLAYER_DB";
-
     public static final String TABLE_NAME = "PLAYERS";
-
     public static final String COL_ID = "_id";
     public static final String COL_NAME = "NAME";
     public static final String COL_POSITION = "POSITION";
     public static final String COL_TEAM = "TEAM";
     public static final String COL_BIO = "BIO";
     public static final String COL_IMAGE = "IMAGE_REF";
-
     public static final String[] TABLE_COLUMNS = {COL_ID,COL_NAME,COL_POSITION,COL_TEAM,COL_BIO,COL_IMAGE};
-
     private static final String CREATE_SHOPPING_LIST_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" +
                     COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
