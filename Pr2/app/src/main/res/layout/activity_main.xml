@@ -24,8 +24,16 @@
             android:gravity="center_horizontal"
             android:textStyle="bold"
             android:textColor="#10d6e1"
-            android:textSize="45sp"
+            android:textSize="30sp"
             android:text="@string/mainAppTitleTV" />
+        <TextView
+            android:id="@+id/xmlGameEngineTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textColor="#10d6e1"
+            android:textSize="15sp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +51,7 @@
                 android:textSize="22sp"
                 android:text="@string/mainFantasyRosterTitleTV"/>
             <TextView
-                android:id="@+id/xmlSearchTitle"
+                android:id="@+id/xmlRoster2Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -51,26 +59,41 @@
                 android:textStyle="bold"
                 android:textColor="#10e2ed"
                 android:textSize="22sp"
-                android:text="@string/mainSearchResultsTitleTV"/>
+                android:text="@string/mainFantasyRoster2TitleTV"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <ListView
-                android:id="@+id/xmlFantasyRosterListView"
+            <Spinner
+                android:id="@+id/xmlFantasyRoster1Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginBottom="50dp"/>
-            <ListView
-                android:id="@+id/xmlSearchListView"
+                android:layout_marginBottom="10dp"/>
+            <Spinner
+                android:id="@+id/xmlFantasyRoster2Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginBottom="50dp"/>
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/xmlSearchTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="#10e2ed"
+            android:textSize="22sp"
+            android:text="@string/mainSearchResultsTitleTV"/>
+        <ListView
+            android:id="@+id/xmlSearchListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"/>
     </LinearLayout>
 
 </RelativeLayout>

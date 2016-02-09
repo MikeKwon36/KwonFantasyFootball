@@ -3,6 +3,7 @@ package com.kwon.mike.pr2;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,17 +17,25 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
-    TextView mTitle, mRosterTitle, mSearchTitle;
+    TextView mTitle, mRosterTitle,mRoster2Title, mSearchTitle, mGameEngineTitle;
     DBSQLiteOpenHelper mHelper;
     Cursor mCursor;
-    ListView mRosterListView, mSearchListView;
-    ArrayAdapter<Player> mFFBRosterArrayAdapter;
+    Spinner mRosterASpinner,mRosterBSpinner;
+    ListView mSearchListView;
+    ArrayAdapter<Player> mFFBRosterArrayAdapterA, mFFBRosterArrayAdapterB;
     CursorAdapter mCursorAdapter;
+
+    Random mGameEngine;
+    SharedPreferences mPrefs;
+    int mRequestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +43,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mTitle = (TextView)findViewById(R.id.xmlTitle);
+        mGameEngineTitle = (TextView)findViewById(R.id.xmlGameEngineTitle);
         mRosterTitle = (TextView)findViewById(R.id.xmlRosterTitle);
+        mRoster2Title = (TextView)findViewById(R.id.xmlRoster2Title);
+        mRosterASpinner = (Spinner)findViewById(R.id.xmlFantasyRoster1Spinner);
+        mRosterBSpinner = (Spinner)findViewById(R.id.xmlFantasyRoster2Spinner);
         mSearchTitle = (TextView)findViewById(R.id.xmlSearchTitle);
-        mRosterListView = (ListView)findViewById(R.id.xmlFantasyRosterListView);
         mSearchListView = (ListView)findViewById(R.id.xmlSearchListView);
+        mPrefs = getSharedPreferences("prefs",MODE_PRIVATE);
+        mGameEngine = new Random();
+        mRequestCode = 0;
 
-        //Singleton ArrayList used to store all players selected by the user for their fantasy roster
-        mFFBRosterArrayAdapter = new CustomArrayAdapter(MainActivity.this,FantasyFootballRosterA.getInstance().getFullRosterA());
-        mRosterListView.setAdapter(mFFBRosterArrayAdapter);
+        //GameEngine TextView cycles through player turns and initiates GameEngineActivity when requirements fulfilled
+        mGameEngineTitle.setText("<Click here to flip coin>");
+        mGameEngineTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameEngineFacilitator();
+            }
+        });
+
+        //Singleton ArrayLists used to store all players selected by the user for their fantasy rosters
+        mFFBRosterArrayAdapterA = new ArrayAdapter<Player>(MainActivity.this,android.R.layout.simple_spinner_item,FantasyFootballRosterA.getInstance().getFullRosterA());
+        mFFBRosterArrayAdapterA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mRosterASpinner.setAdapter(mFFBRosterArrayAdapterA);
+
+        mFFBRosterArrayAdapterB = new ArrayAdapter<Player>(MainActivity.this,android.R.layout.simple_spinner_item,FantasyFootballRosterB.getInstance().getFullRosterB());
+        mFFBRosterArrayAdapterB.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mRosterBSpinner.setAdapter(mFFBRosterArrayAdapterB);
 
         //Instantiate a singleton database with a getInstance method, instead of a normal constructor
         mHelper = DBSQLiteOpenHelper.getInstance(MainActivity.this);
@@ -70,33 +99,43 @@ public class MainActivity extends AppCompatActivity {
         mSearchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mRequestCode<1){
+                    Toast.makeText(MainActivity.this, "Flip coin to start draft order!", Toast.LENGTH_SHORT).show();
+                } else if (mRequestCode>2){
+                    Toast.makeText(MainActivity.this, "Rosters set! Time to play.", Toast.LENGTH_SHORT).show();
+                } else {
                 Intent intent = new Intent(MainActivity.this,ResultDetailActivity.class);
                 mCursor.moveToPosition(position);
                 intent.putExtra("id",mCursor.getInt(mCursor.getColumnIndex(mHelper.COL_ID)));
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, mRequestCode);
+                }
             }
         });
 
         //OnItemClick listener aligns player object selected in RosterArray with Database file via
         // name (instead of id), and uses startActivity instead of startActivityForResult to
         // prevent re-adding a current player again
-        mRosterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mRosterASpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, ResultDetailActivity.class);
                 intent.putExtra("Name", FantasyFootballRosterA.getInstance().getPlayerA(position).getmName());
                 startActivity(intent);
             }
-        });
 
-        //Long clicking a player on the fantasy roster removes them from the arrayList
-        mRosterListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                FantasyFootballRosterA.getInstance().removePlayerA(position);
-                mFFBRosterArrayAdapter.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this,getResources().getString(R.string.toastPlayerRemoved), Toast.LENGTH_SHORT).show();
-                return true;
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        mRosterBSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, ResultDetailActivity.class);
+                intent.putExtra("Name", FantasyFootballRosterB.getInstance().getPlayerB(position).getmName());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
@@ -115,7 +154,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FantasyFootballRosterA.getInstance().getFullRosterA().clear();
-                mFFBRosterArrayAdapter.notifyDataSetChanged();
+                mFFBRosterArrayAdapterA.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.toastResetRoster), Toast.LENGTH_SHORT).show();
+            }
+        });
+        mRoster2Title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FantasyFootballRosterB.getInstance().getFullRosterB().clear();
+                mFFBRosterArrayAdapterB.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.toastResetRoster), Toast.LENGTH_SHORT).show();
             }
         });
@@ -171,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                 newPlayer.setmBio(cursor.getString(cursor.getColumnIndex(DBSQLiteOpenHelper.COL_BIO)));
                 newPlayer.setmImage(cursor.getInt(cursor.getColumnIndex(DBSQLiteOpenHelper.COL_IMAGE)));
 
-                //roster tested to see if player OR position is already accounted for
+                //roster tested to see if player is already taken in either roster OR position is already accounted for
                 boolean dupTest = false;
                 for (Player test : FantasyFootballRosterA.getInstance().getFullRosterA()){
                     if(test.getmName().equals(newPlayer.getmName())){
@@ -182,10 +229,22 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,getResources().getString(R.string.toastPositionTaken),Toast.LENGTH_SHORT).show();
                     }
                 }
+                for (Player test : FantasyFootballRosterB.getInstance().getFullRosterB()){
+                    if(test.getmName().equals(newPlayer.getmName())){
+                        dupTest = true;
+                        Toast.makeText(MainActivity.this,getResources().getString(R.string.toastPlayerDuplicate),Toast.LENGTH_SHORT).show();
+                    }}
                 if(!dupTest){
                     FantasyFootballRosterA.getInstance().addPlayerA(newPlayer);
-                    mFFBRosterArrayAdapter.notifyDataSetChanged();
+                    mFFBRosterArrayAdapterA.notifyDataSetChanged();
+                    mRequestCode=2;
                     Toast.makeText(MainActivity.this,getResources().getString(R.string.toastRemovePlayerInstructions),Toast.LENGTH_SHORT).show();
+                }
+
+                if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
+                        && FantasyFootballRosterA.getInstance().getFullRosterA().size()==3) {
+                    mGameEngineTitle.setText("<Click to start game!>");
+                    mRequestCode = 3;
                 }
 
                 //Search results are reset
@@ -193,5 +252,95 @@ public class MainActivity extends AppCompatActivity {
                 mCursorAdapter.swapCursor(mCursor);
             }
         }
+        if (requestCode==2){
+            if(resultCode == RESULT_OK){
+                int id = data.getIntExtra("id", -1);
+                Cursor cursor = mHelper.searchPlayerByid(id);
+                cursor.moveToFirst();
+                Player newPlayer = new Player();
+                newPlayer.setmName(cursor.getString(cursor.getColumnIndex(DBSQLiteOpenHelper.COL_NAME)));
+                newPlayer.setmTeam(cursor.getString(cursor.getColumnIndex(DBSQLiteOpenHelper.COL_TEAM)));
+                newPlayer.setmPosition(cursor.getString(cursor.getColumnIndex(DBSQLiteOpenHelper.COL_POSITION)));
+                newPlayer.setmBio(cursor.getString(cursor.getColumnIndex(DBSQLiteOpenHelper.COL_BIO)));
+                newPlayer.setmImage(cursor.getInt(cursor.getColumnIndex(DBSQLiteOpenHelper.COL_IMAGE)));
+
+                //roster tested to see if player is already taken in either roster OR position is already accounted for
+                boolean dupTest = false;
+                for (Player test : FantasyFootballRosterB.getInstance().getFullRosterB()){
+                    if(test.getmName().equals(newPlayer.getmName())){
+                        dupTest = true;
+                        Toast.makeText(MainActivity.this,getResources().getString(R.string.toastPlayerDuplicate),Toast.LENGTH_SHORT).show();
+                    } else if (test.getmPosition().equals(newPlayer.getmPosition())){
+                        dupTest = true;
+                        Toast.makeText(MainActivity.this,getResources().getString(R.string.toastPositionTaken),Toast.LENGTH_SHORT).show();
+                    }
+                }
+                for (Player test : FantasyFootballRosterA.getInstance().getFullRosterA()){
+                    if(test.getmName().equals(newPlayer.getmName())){
+                        dupTest = true;
+                        Toast.makeText(MainActivity.this,getResources().getString(R.string.toastPlayerDuplicate),Toast.LENGTH_SHORT).show();
+                    }
+                }
+                if(!dupTest){
+                    FantasyFootballRosterB.getInstance().addPlayerB(newPlayer);
+                    mFFBRosterArrayAdapterB.notifyDataSetChanged();
+                    mRequestCode=1;
+                    Toast.makeText(MainActivity.this,getResources().getString(R.string.toastRemovePlayerInstructions),Toast.LENGTH_SHORT).show();
+                }
+
+
+                if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
+                        && FantasyFootballRosterA.getInstance().getFullRosterA().size()==3){
+                    mGameEngineTitle.setText("<Click to start game!>");
+                    mRequestCode = 3;
+                }
+
+                //Search results are reset
+                mCursor = mHelper.getPlayerList();
+                mCursorAdapter.swapCursor(mCursor);
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mRequestCode = mPrefs.getInt("prefs",0);
+        switch (mRequestCode){
+            case 0:
+                mGameEngineTitle.setText("<Click here to flip coin>");
+                break;
+            case 1:
+                mGameEngineTitle.setText("Player 1 draft");
+                break;
+            case 2:
+                mGameEngineTitle.setText("Player 2 draft");
+                break;
+            case 3:
+                mGameEngineTitle.setText("<Click to start game!>");
+                break;
+        }
+    }
+
+    public void gameEngineFacilitator(){
+        if(mRequestCode==0){
+            int coinFlip = mGameEngine.nextInt(2);
+            if (coinFlip==0){
+                mGameEngineTitle.setText("Player 1 draft");
+                SharedPreferences.Editor editor = mPrefs.edit();
+                mRequestCode = 1;
+                editor.putInt("prefs",mRequestCode);
+            } else {
+                mGameEngineTitle.setText("Player 2 draft");
+                SharedPreferences.Editor editor = mPrefs.edit();
+                mRequestCode = 2;
+                editor.putInt("prefs",mRequestCode);
+            }
+        }
+        if(mRequestCode==3){
+            Intent intent = new Intent(MainActivity.this,GameEngineActivity.class);
+            startActivity(intent);
+        }
+
     }
 }
