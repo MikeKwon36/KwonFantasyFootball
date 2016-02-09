@@ -51,15 +51,15 @@ public class DBSQLiteOpenHelper extends SQLiteOpenHelper {
     //Singleton database constructor set to private + code to populate database
     private DBSQLiteOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        addPlayer("Tom Brady", "Quarterback", "New England Patriots",context.getResources().getString(R.string.TomBradyBio),R.drawable.tombradypng);
-        addPlayer("Cam Newton", "Quarterback", "Carolina Panthers",context.getResources().getString(R.string.CamBio),R.drawable.camnewton);
-        addPlayer("Peyton Manning", "Quarterback", "Denver Broncos",context.getResources().getString(R.string.PeytonBio),R.drawable.peyton);
-        addPlayer("Mike Kwon", "Wide Receiver", "Rochester Yellowjackets",context.getResources().getString(R.string.KwonBio),R.drawable.kwon);
-        addPlayer("Brandon Marshall", "Wide Receiver", "New York Jets",context.getResources().getString(R.string.BrandonBio),R.drawable.marshall);
-        addPlayer("Antonio Brown", "Wide Receiver", "Pittsburgh Steelers",context.getResources().getString(R.string.AntonioBio),R.drawable.antonio_brown);
-        addPlayer("Adrian Peterson", "Running Back", "Minnesota Vikings",context.getResources().getString(R.string.APBio),R.drawable.ap);
-        addPlayer("Doug Martin", "Running Back", "Tampa Bay Buccaneers",context.getResources().getString(R.string.DougBio),R.drawable.dougmartin);
-        addPlayer("Todd Gurley", "Running Back", "Los Angeles Rams",context.getResources().getString(R.string.GurleyBio),R.drawable.gurley);
+        addPlayer("Tom Brady", context.getResources().getString(R.string.posQB),context.getResources().getString(R.string.teamNE), context.getResources().getString(R.string.TomBradyBio), R.drawable.tombradypng);
+        addPlayer("Cam Newton",context.getResources().getString(R.string.posQB),context.getResources().getString(R.string.teamCAR),context.getResources().getString(R.string.CamBio),R.drawable.camnewton);
+        addPlayer("Peyton Manning",context.getResources().getString(R.string.posQB),context.getResources().getString(R.string.teamDEN),context.getResources().getString(R.string.PeytonBio),R.drawable.peyton);
+        addPlayer("Mike Kwon",context.getResources().getString(R.string.posWR),context.getResources().getString(R.string.teamROC),context.getResources().getString(R.string.KwonBio),R.drawable.kwon);
+        addPlayer("Brandon Marshall",context.getResources().getString(R.string.posWR),context.getResources().getString(R.string.teamNYJ),context.getResources().getString(R.string.BrandonBio),R.drawable.marshall);
+        addPlayer("Antonio Brown",context.getResources().getString(R.string.posWR),context.getResources().getString(R.string.teamPIT),context.getResources().getString(R.string.AntonioBio),R.drawable.antonio_brown);
+        addPlayer("Adrian Peterson",context.getResources().getString(R.string.posRB),context.getResources().getString(R.string.teamMIN),context.getResources().getString(R.string.APBio),R.drawable.ap);
+        addPlayer("Doug Martin",context.getResources().getString(R.string.posRB),context.getResources().getString(R.string.teamTB),context.getResources().getString(R.string.DougBio),R.drawable.dougmartin);
+        addPlayer("Todd Gurley",context.getResources().getString(R.string.posRB),context.getResources().getString(R.string.teamLAR),context.getResources().getString(R.string.GurleyBio),R.drawable.gurley);
     }
 
     //Method to retrieve Singleton database uses application context in constructor (since individual activity contexts are not applicable)

@@ -22,6 +22,21 @@
 
     <string name="CheckRosterButton">Check Roster</string>
 
+    <string name="posQB">QB</string>
+    <string name="posWR">WR</string>
+    <string name="posRB">RB</string>
+
+    <string name="teamNE">New England Patriots</string>
+    <string name="teamCAR">Carolina Panthers</string>
+    <string name="teamNYJ">New York Jets</string>
+    <string name="teamDEN">Denver Broncos</string>
+    <string name="teamROC">Rochester Yellowjackets</string>
+    <string name="teamTB">Tampa Bay Buccaneers</string>
+    <string name="teamPIT">Pittsburgh Steelers</string>
+    <string name="teamLAR">Los Angeles Rams</string>
+    <string name="teamMIN">Minnesota Vikings</string>
+
+
     <string name="TomBradyBio">Thomas Edward Patrick Brady, Jr. (born August 3, 1977) is an American football quarterback
         for the New England Patriots of the National Football League (NFL). After playing college football for the University of Michigan,
         Tom Brady was drafted by the Patriots in the sixth round of the 2000 NFL draft. In Bradys 13 full seasons as a starter

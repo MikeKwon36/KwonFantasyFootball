@@ -58,4 +58,9 @@ public class Player {
     public void setmImage(int mImage) {
         this.mImage = mImage;
     }
+
+    @Override
+    public String toString() {
+        return getmName();
+    }
 }
