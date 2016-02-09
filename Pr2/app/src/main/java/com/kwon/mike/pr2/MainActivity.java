@@ -118,20 +118,27 @@ public class MainActivity extends AppCompatActivity {
         mRosterASpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, ResultDetailActivity.class);
-                intent.putExtra("Name", FantasyFootballRosterA.getInstance().getPlayerA(position).getmName());
-                startActivity(intent);
+                if(position==0){return;}
+                else {
+                    Intent intent = new Intent(MainActivity.this, ResultDetailActivity.class);
+                    intent.putExtra("Name", FantasyFootballRosterA.getInstance().getPlayerA(position).getmName());
+                    startActivity(intent);
+                }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
         mRosterBSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, ResultDetailActivity.class);
-                intent.putExtra("Name", FantasyFootballRosterB.getInstance().getPlayerB(position).getmName());
-                startActivity(intent);
+                if(position==0){return;}
+                else {
+                    Intent intent = new Intent(MainActivity.this, ResultDetailActivity.class);
+                    intent.putExtra("Name", FantasyFootballRosterB.getInstance().getPlayerB(position).getmName());
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -146,24 +153,6 @@ public class MainActivity extends AppCompatActivity {
                 mCursor = mHelper.getPlayerList();
                 mCursorAdapter.swapCursor(mCursor);
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.toastResetSearch), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //Clicking the roster title will reset the fantasy roster
-        mRosterTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FantasyFootballRosterA.getInstance().getFullRosterA().clear();
-                mFFBRosterArrayAdapterA.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this, getResources().getString(R.string.toastResetRoster), Toast.LENGTH_SHORT).show();
-            }
-        });
-        mRoster2Title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FantasyFootballRosterB.getInstance().getFullRosterB().clear();
-                mFFBRosterArrayAdapterB.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this, getResources().getString(R.string.toastResetRoster), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -238,13 +227,18 @@ public class MainActivity extends AppCompatActivity {
                     FantasyFootballRosterA.getInstance().addPlayerA(newPlayer);
                     mFFBRosterArrayAdapterA.notifyDataSetChanged();
                     mRequestCode=2;
-                    Toast.makeText(MainActivity.this,getResources().getString(R.string.toastRemovePlayerInstructions),Toast.LENGTH_SHORT).show();
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putInt("prefs",mRequestCode);
+                    editor.commit();
                 }
 
                 if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
-                        && FantasyFootballRosterA.getInstance().getFullRosterA().size()==3) {
+                        && FantasyFootballRosterA.getInstance().getFullRosterA().size()==4) {
                     mGameEngineTitle.setText("<Click to start game!>");
                     mRequestCode = 3;
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putInt("prefs",mRequestCode);
+                    editor.commit();
                 }
 
                 //Search results are reset
@@ -285,14 +279,19 @@ public class MainActivity extends AppCompatActivity {
                     FantasyFootballRosterB.getInstance().addPlayerB(newPlayer);
                     mFFBRosterArrayAdapterB.notifyDataSetChanged();
                     mRequestCode=1;
-                    Toast.makeText(MainActivity.this,getResources().getString(R.string.toastRemovePlayerInstructions),Toast.LENGTH_SHORT).show();
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putInt("prefs",mRequestCode);
+                    editor.commit();
                 }
 
 
                 if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
-                        && FantasyFootballRosterA.getInstance().getFullRosterA().size()==3){
+                        && FantasyFootballRosterA.getInstance().getFullRosterA().size()==4){
                     mGameEngineTitle.setText("<Click to start game!>");
                     mRequestCode = 3;
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putInt("prefs",mRequestCode);
+                    editor.commit();
                 }
 
                 //Search results are reset
@@ -305,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mPrefs = getSharedPreferences("prefs",MODE_PRIVATE);
         mRequestCode = mPrefs.getInt("prefs",0);
         switch (mRequestCode){
             case 0:
@@ -330,11 +330,13 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = mPrefs.edit();
                 mRequestCode = 1;
                 editor.putInt("prefs",mRequestCode);
+                editor.commit();
             } else {
                 mGameEngineTitle.setText("Player 2 draft");
                 SharedPreferences.Editor editor = mPrefs.edit();
                 mRequestCode = 2;
                 editor.putInt("prefs",mRequestCode);
+                editor.commit();
             }
         }
         if(mRequestCode==3){

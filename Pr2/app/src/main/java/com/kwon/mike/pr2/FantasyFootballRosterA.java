@@ -12,6 +12,8 @@ public class FantasyFootballRosterA {
     //Roster A Singleton ArrayList of Player objects instantiated in private constructor
     private FantasyFootballRosterA(){
         mFantasyFootballRosterAArray = new ArrayList<Player>();
+        Player titleA = new Player("--Roster A--","","","",0);
+        mFantasyFootballRosterAArray.add(titleA);
     }
 
     //getInstance() method call instantiates and returns an instance of the FantasyFootballRosterA class

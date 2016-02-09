@@ -8,11 +8,8 @@
     <string name="mainFantasyRoster2TitleTV">ROSTER-2</string>
     <string name="mainSearchResultsTitleTV">PLAYERS</string>
 
-    <string name="toastPlayerDuplicate">Player already on roster!</string>
-    <string name="toastPositionTaken">Position already taken!</string>
-    <string name="toastRemovePlayerInstructions">Player added! Long-click to remove</string>
-    <string name="toastPlayerRemoved">Player removed from roster</string>
-    <string name="toastResetRoster">Roster reset!</string>
+    <string name="toastPlayerDuplicate">Player already drafted!</string>
+    <string name="toastPositionTaken">Position already on roster!</string>
     <string name="toastResetSearch">List reset!</string>
 
     <string name="alertDialogTitle">Current Roster</string>
