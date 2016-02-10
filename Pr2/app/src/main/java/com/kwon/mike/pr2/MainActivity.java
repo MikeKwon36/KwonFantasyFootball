@@ -191,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
     // concludes by updating the player turn via RequestCode and resetting the search results.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        //Sequence of actions to execute if Player B drafts a player
         if(requestCode == 1){
             if(resultCode == RESULT_OK){
                 int id = data.getIntExtra("id", -1);
@@ -243,6 +245,8 @@ public class MainActivity extends AppCompatActivity {
                 mCursorAdapter.swapCursor(mCursor);
             }
         }
+
+        //Sequence of actions to execute if Player B drafts a player
         if (requestCode==2){
             if(resultCode == RESULT_OK){
                 int id = data.getIntExtra("id", -1);
@@ -297,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //After game is played, rosters & gameEngine are reset
+        //After game is played in the GameEngineActivity, rosters & MainActivity's gameEngine are reset
         if (requestCode==3){
             if(resultCode == RESULT_OK){
                 FantasyFootballRosterA.getInstance().getFullRosterA().clear();
@@ -309,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
                 FantasyFootballRosterB.getInstance().getFullRosterB().add(titleB);
 
                 mGameEngineTitle.setText(getResources().getString(R.string.GameFlipCoin));
-                mRequestCode = 3;
+                mRequestCode = 0;
                 SharedPreferences.Editor editor = mPrefs.edit();
                 editor.putInt("prefs", mRequestCode);
                 editor.commit();
