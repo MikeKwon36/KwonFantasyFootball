@@ -25,16 +25,16 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView mTitle, mRosterTitle,mRoster2Title, mSearchTitle, mGameEngineTitle;
-    DBSQLiteOpenHelper mHelper;
-    Cursor mCursor;
-    Spinner mRosterASpinner,mRosterBSpinner;
-    ListView mSearchListView;
-    ArrayAdapter<Player> mFFBRosterArrayAdapterA, mFFBRosterArrayAdapterB;
-    CursorAdapter mCursorAdapter;
-    Random mGameEngine;
-    SharedPreferences mPrefs;
-    int mRequestCode;
+    private TextView mTitle, mRosterTitle,mRoster2Title, mSearchTitle, mGameEngineTitle;
+    private DBSQLiteOpenHelper mHelper;
+    private Cursor mCursor;
+    private Spinner mRosterASpinner,mRosterBSpinner;
+    private ListView mSearchListView;
+    private ArrayAdapter<Player> mFFBRosterArrayAdapterA, mFFBRosterArrayAdapterB;
+    private CursorAdapter mCursorAdapter;
+    private Random mGameEngine;
+    private SharedPreferences mPrefs;
+    public int mRequestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

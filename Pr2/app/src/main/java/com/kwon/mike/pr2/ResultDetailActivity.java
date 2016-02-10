@@ -17,12 +17,12 @@ import android.widget.TextView;
 
 public class ResultDetailActivity extends AppCompatActivity {
 
-    TextView mName, mPosition, mTeam, mBio;
-    ImageView mImage;
-    DBSQLiteOpenHelper mHelper;
-    Cursor mCursor;
-    Button mCheckRosterButton, mGooglePlayerButton;
-    String[] mCurrentRoster;
+    private TextView mName, mPosition, mTeam, mBio;
+    private ImageView mImage;
+    private DBSQLiteOpenHelper mHelper;
+    private Cursor mCursor;
+    private Button mCheckRosterButton, mGooglePlayerButton;
+    private String[] mCurrentRoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

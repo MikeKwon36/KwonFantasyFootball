@@ -12,18 +12,6 @@ public class StadiumWeatherVariables {
     //Singleton ArrayList of Strings instantiated in private constructor
     private StadiumWeatherVariables(){
         mStadiumWeatherVariablesArray = new ArrayList<String>();
-        mStadiumWeatherVariablesArray.add(0,"MetLife Stadium, NY/NJ");
-        mStadiumWeatherVariablesArray.add(1,"MileHigh Stadium, CO");
-        mStadiumWeatherVariablesArray.add(2,"Bank of America Stadium, NC");
-        mStadiumWeatherVariablesArray.add(3,"Gillette Stadium, MA");
-        mStadiumWeatherVariablesArray.add(4,"Heinz Field, PA");
-        mStadiumWeatherVariablesArray.add(5,"Raymond James Stadium, FL");
-        mStadiumWeatherVariablesArray.add(6,"U.S. Bank Stadium, MN");
-        mStadiumWeatherVariablesArray.add(7,"Fauver Stadium, ROC");
-        mStadiumWeatherVariablesArray.add(8,"Los Angeles Entertainment Center, CA");
-        mStadiumWeatherVariablesArray.add(9,"Blizzard");
-        mStadiumWeatherVariablesArray.add(10,"Rainy");
-        mStadiumWeatherVariablesArray.add(11,"Sunny");
     }
 
     //getInstance() method call instantiates and returns an instance of the StadiumWeatherVariables class
@@ -32,6 +20,10 @@ public class StadiumWeatherVariables {
             mInstance = new StadiumWeatherVariables();
         }
         return mInstance;
+    }
+
+    public static void add(String name){
+        mStadiumWeatherVariablesArray.add(name);
     }
 
     public static String getVariable(String name){
