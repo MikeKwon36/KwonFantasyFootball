@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                 //Once rosters are complete, option to begin game is presented
                 if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
                         && FantasyFootballRosterA.getInstance().getFullRosterA().size()==4) {
-                    mGameEngineTitle.setText("<-Click to start game!->");
+                    mGameEngineTitle.setText(getResources().getString(R.string.GameKickOff));
                     mRequestCode = 3;
                     SharedPreferences.Editor editor = mPrefs.edit();
                     editor.putInt("prefs", mRequestCode);
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                 //Once rosters are complete, option to begin game is presented
                 if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
                         && FantasyFootballRosterA.getInstance().getFullRosterA().size()==4){
-                    mGameEngineTitle.setText("<-Rosters ready, click to Kick-off!->");
+                    mGameEngineTitle.setText(getResources().getString(R.string.GameKickOff));
                     mRequestCode = 3;
                     SharedPreferences.Editor editor = mPrefs.edit();
                     editor.putInt("prefs", mRequestCode);
@@ -294,6 +294,25 @@ public class MainActivity extends AppCompatActivity {
                 //Search results are reset
                 mCursor = mHelper.getPlayerList();
                 mCursorAdapter.swapCursor(mCursor);
+            }
+        }
+
+        //After game is played, rosters & gameEngine are reset
+        if (requestCode==3){
+            if(resultCode == RESULT_OK){
+                FantasyFootballRosterA.getInstance().getFullRosterA().clear();
+                Player titleA = new Player("--Roster A--","","","",0);
+                FantasyFootballRosterA.getInstance().getFullRosterA().add(titleA);
+
+                FantasyFootballRosterB.getInstance().getFullRosterB().clear();
+                Player titleB = new Player("--Roster B--","","","",0);
+                FantasyFootballRosterB.getInstance().getFullRosterB().add(titleB);
+
+                mGameEngineTitle.setText(getResources().getString(R.string.GameFlipCoin));
+                mRequestCode = 3;
+                SharedPreferences.Editor editor = mPrefs.edit();
+                editor.putInt("prefs", mRequestCode);
+                editor.commit();
             }
         }
     }
@@ -306,32 +325,34 @@ public class MainActivity extends AppCompatActivity {
         mRequestCode = mPrefs.getInt("prefs",0);
         switch (mRequestCode){
             case 0:
-                mGameEngineTitle.setText("<Click here to flip coin>");
+                mGameEngineTitle.setText(getResources().getString(R.string.GameFlipCoin));
                 break;
             case 1:
-                mGameEngineTitle.setText("Player 1 draft");
+                mGameEngineTitle.setText(getResources().getString(R.string.GamePlayer1Draft));
                 break;
             case 2:
-                mGameEngineTitle.setText("Player 2 draft");
+                mGameEngineTitle.setText(getResources().getString(R.string.GamePlayer2Draft));
                 break;
             case 3:
-                mGameEngineTitle.setText("<Click to start game!>");
+                mGameEngineTitle.setText(getResources().getString(R.string.GameKickOff));
                 break;
         }
     }
 
-    //GameEngineMethod called when GameEngineTextView clicked to start draft & launch GameActivity
+    //GameEngineMethod called when GameEngineTextView clicked... Method initiates draft
+    // sequence by determining which player drafts first.  Once rosters are filled, method
+    // launches GameEngineActivity
     public void gameEngineFacilitator(){
         if(mRequestCode==0){
             int coinFlip = mGameEngine.nextInt(2);
             if (coinFlip==0){
-                mGameEngineTitle.setText("Player 1 draft");
+                mGameEngineTitle.setText(getResources().getString(R.string.GamePlayer1Draft));
                 mRequestCode = 1;
                 SharedPreferences.Editor editor = mPrefs.edit();
                 editor.putInt("prefs",mRequestCode);
                 editor.commit();
             } else {
-                mGameEngineTitle.setText("Player 2 draft");
+                mGameEngineTitle.setText(getResources().getString(R.string.GamePlayer2Draft));
                 mRequestCode = 2;
                 SharedPreferences.Editor editor = mPrefs.edit();
                 editor.putInt("prefs",mRequestCode);
@@ -339,8 +360,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if(mRequestCode==3){
-            Intent intent = new Intent(MainActivity.this,GameEngineActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, GameEngineActivity.class);
+            startActivityForResult(intent,mRequestCode);
         }
     }
 }

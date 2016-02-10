@@ -3,7 +3,7 @@
     <string name="title_activity_result_detail">ResultDetailActivity</string>
     <string name="search_hint">Search for a player</string>
 
-    <string name="mainAppTitleTV">Kwon Fantasy Football</string>
+    <string name="mainAppTitleTV">KWON FANTASY FOOTBALL</string>
     <string name="mainFantasyRosterTitleTV">ROSTER A</string>
     <string name="mainFantasyRoster2TitleTV">ROSTER B</string>
     <string name="mainSearchResultsTitleTV">PLAYERS</string>
@@ -20,6 +20,11 @@
 
     <string name="CheckRosterButton">Check Roster</string>
 
+    <string name="GameFlipCoin">[Click here to flip coin]</string>
+    <string name="GamePlayer1Draft">**Player 1 draft**</string>
+    <string name="GamePlayer2Draft">**Player 2 draft**</string>
+    <string name="GameKickOff">[Rosters ready, click to Kick-off!]</string>
+
     <string name="posQB">QB</string>
     <string name="posWR">WR</string>
     <string name="posRB">RB</string>
@@ -33,7 +38,6 @@
     <string name="teamPIT">Pittsburgh Steelers</string>
     <string name="teamLAR">Los Angeles Rams</string>
     <string name="teamMIN">Minnesota Vikings</string>
-
 
     <string name="TomBradyBio">Thomas Edward Patrick Brady, Jr. (born August 3, 1977) is an American football quarterback
         for the New England Patriots of the National Football League (NFL). After playing college football for the University of Michigan,

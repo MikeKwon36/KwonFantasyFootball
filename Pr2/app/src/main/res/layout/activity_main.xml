@@ -15,16 +15,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp">
         <TextView
             android:id="@+id/xmlTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
             android:textStyle="bold"
-            android:textColor="#10d6e1"
-            android:textSize="30sp"
+            android:textColor="#ffffff"
+            android:textSize="40sp"
             android:text="@string/mainAppTitleTV" />
         <TextView
             android:id="@+id/xmlGameEngineTitle"
@@ -47,7 +47,7 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:textStyle="bold"
-                android:textColor="#10e2ed"
+                android:textColor="#07de03"
                 android:textSize="22sp"
                 android:text="@string/mainFantasyRosterTitleTV"/>
             <TextView
@@ -58,7 +58,7 @@
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                android:textColor="#10e2ed"
+                android:textColor="#07de03"
                 android:textSize="22sp"
                 android:text="@string/mainFantasyRoster2TitleTV"/>
         </LinearLayout>
@@ -66,19 +66,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
             <Spinner
                 android:id="@+id/xmlFantasyRoster1Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginBottom="25dp"/>
+                android:layout_weight="1"/>
             <Spinner
                 android:id="@+id/xmlFantasyRoster2Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginBottom="25dp"/>
+                android:layout_weight="1"/>
         </LinearLayout>
 
         <TextView
@@ -88,7 +87,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:textStyle="bold"
-            android:textColor="#10e2ed"
+            android:textColor="#07de03"
             android:textSize="22sp"
             android:text="@string/mainSearchResultsTitleTV"/>
         <ListView
