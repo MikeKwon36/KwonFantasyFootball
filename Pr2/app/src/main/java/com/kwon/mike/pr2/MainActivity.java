@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Singleton ArrayLists used to store all players drafted for both fantasy rosters and
         // displayed in spinners (artificial player used in index 0 to prevent Spinner from
-        // automatically initiating OnItemSelectListener on first player drafted
+        // automatically initiating OnItemSelectListener on first player drafted)
         mFFBRosterArrayAdapterA = new ArrayAdapter<Player>(MainActivity.this,android.R.layout.simple_spinner_item,FantasyFootballRosterA.getInstance().getFullRosterA());
         mFFBRosterArrayAdapterA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mRosterASpinner.setAdapter(mFFBRosterArrayAdapterA);
@@ -223,18 +223,12 @@ public class MainActivity extends AppCompatActivity {
                     FantasyFootballRosterA.getInstance().addPlayerA(newPlayer);
                     mFFBRosterArrayAdapterA.notifyDataSetChanged();
                     mRequestCode=2;
-                    SharedPreferences.Editor editor = mPrefs.edit();
-                    editor.putInt("prefs",mRequestCode);
-                    editor.commit();
                 }
 
                 if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
                         && FantasyFootballRosterA.getInstance().getFullRosterA().size()==4) {
                     mGameEngineTitle.setText("<-Click to start game!->");
                     mRequestCode = 3;
-                    SharedPreferences.Editor editor = mPrefs.edit();
-                    editor.putInt("prefs",mRequestCode);
-                    editor.commit();
                 }
 
                 //Search results are reset
@@ -275,9 +269,6 @@ public class MainActivity extends AppCompatActivity {
                     FantasyFootballRosterB.getInstance().addPlayerB(newPlayer);
                     mFFBRosterArrayAdapterB.notifyDataSetChanged();
                     mRequestCode=1;
-                    SharedPreferences.Editor editor = mPrefs.edit();
-                    editor.putInt("prefs",mRequestCode);
-                    editor.commit();
                 }
 
 
@@ -285,9 +276,6 @@ public class MainActivity extends AppCompatActivity {
                         && FantasyFootballRosterA.getInstance().getFullRosterA().size()==4){
                     mGameEngineTitle.setText("<-Rosters ready, click to Kick-off!->");
                     mRequestCode = 3;
-                    SharedPreferences.Editor editor = mPrefs.edit();
-                    editor.putInt("prefs",mRequestCode);
-                    editor.commit();
                 }
 
                 //Search results are reset
@@ -297,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //onResume overridden to save the RequestCode in sharedPreferences to preserve the player turn
+    //onResume overridden to retrieve the RequestCode in sharedPreferences to restore the player turn
     @Override
     protected void onResume() {
         super.onResume();
@@ -317,6 +305,15 @@ public class MainActivity extends AppCompatActivity {
                 mGameEngineTitle.setText("<Click to start game!>");
                 break;
         }
+    }
+
+    //onPause overridden to save the RequestCode in sharedPreferences to save the player turn
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences.Editor editor = mPrefs.edit();
+        editor.putInt("prefs",mRequestCode);
+        editor.apply();
     }
 
     //GameEngineMethod called when GameEngineTextView clicked to start draft & launch GameActivity
