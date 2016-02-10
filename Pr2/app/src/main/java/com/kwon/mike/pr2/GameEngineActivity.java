@@ -53,7 +53,7 @@ public class GameEngineActivity extends AppCompatActivity {
         populateGameConditions();
         populateGameRosters();
         initializeScoreTrackers();
-        mQuarter.setText(mGamePhase);
+        mQuarter.setText(String.valueOf(mGamePhase));
         mStadium.setText(StadiumWeatherVariables.getVariable(mGameEngine.nextInt(9)));
         mWeather.setText(StadiumWeatherVariables.getVariable(9 + mGameEngine.nextInt(3)));
         mGameFacilitator.setText("[Click here to Kick-off]");
@@ -79,14 +79,14 @@ public class GameEngineActivity extends AppCompatActivity {
                             mCalcB3TD+=(mCalcB3TD + (mGameEngine.nextInt(2)));
                             mCalcTeamAScoreSum = (7*mCalcA1TD)+(7*mCalcA2TD)+(7*mCalcA3TD);
                             mCalcTeamBScoreSum = (7*mCalcB1TD)+(7*mCalcB2TD)+(7*mCalcB3TD);
-                            mPlayerA_1TD.setText(mCalcA1TD);
-                            mPlayerA_2TD.setText(mCalcA2TD);
-                            mPlayerA_3TD.setText(mCalcA3TD);
-                            mPlayerB_1TD.setText(mCalcB1TD);
-                            mPlayerB_2TD.setText(mCalcB2TD);
-                            mPlayerB_3TD.setText(mCalcB3TD);
-                            mTeamAScore.setText(mCalcTeamAScoreSum);
-                            mTeamBScore.setText(mCalcTeamBScoreSum);
+                            mPlayerA_1TD.setText(String.valueOf(mCalcA1TD));
+                            mPlayerA_2TD.setText(String.valueOf(mCalcA2TD));
+                            mPlayerA_3TD.setText(String.valueOf(mCalcA3TD));
+                            mPlayerB_1TD.setText(String.valueOf(mCalcB1TD));
+                            mPlayerB_2TD.setText(String.valueOf(mCalcB2TD));
+                            mPlayerB_3TD.setText(String.valueOf(mCalcB3TD));
+                            mTeamAScore.setText(String.valueOf(mCalcTeamAScoreSum));
+                            mTeamBScore.setText(String.valueOf(mCalcTeamBScoreSum));
                         }
                         public void onFinish() {
                             if(mCalcTeamAScoreSum>mCalcTeamBScoreSum){mGameFacilitator.setText("Team A wins!!");}
@@ -127,12 +127,12 @@ public class GameEngineActivity extends AppCompatActivity {
         mPlayerB_1.setText(FantasyFootballRosterB.getPlayerB(1).getmName().toString());
         mPlayerB_2.setText(FantasyFootballRosterB.getPlayerB(2).getmName().toString());
         mPlayerB_3.setText(FantasyFootballRosterB.getPlayerB(3).getmName().toString());
-        mPlayerA_1TD.setText(mCalcA1TD);
-        mPlayerA_2TD.setText(mCalcA2TD);
-        mPlayerA_3TD.setText(mCalcA3TD);
-        mPlayerB_1TD.setText(mCalcB1TD);
-        mPlayerB_2TD.setText(mCalcB2TD);
-        mPlayerB_3TD.setText(mCalcB3TD);
+        mPlayerA_1TD.setText(String.valueOf(mCalcA1TD));
+        mPlayerA_2TD.setText(String.valueOf(mCalcA2TD));
+        mPlayerA_3TD.setText(String.valueOf(mCalcA3TD));
+        mPlayerB_1TD.setText(String.valueOf(mCalcB1TD));
+        mPlayerB_2TD.setText(String.valueOf(mCalcB2TD));
+        mPlayerB_3TD.setText(String.valueOf(mCalcB3TD));
     }
 
     //Method to initialize all scoring tracker variables to zero
