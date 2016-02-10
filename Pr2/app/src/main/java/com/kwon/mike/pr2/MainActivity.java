@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         };
         mSearchListView.setAdapter(mCursorAdapter);
 
-        //OnItemClick listener aligns Search result list clicks with database items by moving
+        //OnItemClick listener aligns Search result list-clicks with database items by moving
         // cursor accordingly, and passing the selected player's id to the Details Activity
         mSearchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -223,12 +223,19 @@ public class MainActivity extends AppCompatActivity {
                     FantasyFootballRosterA.getInstance().addPlayerA(newPlayer);
                     mFFBRosterArrayAdapterA.notifyDataSetChanged();
                     mRequestCode=2;
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putInt("prefs", mRequestCode);
+                    editor.commit();
                 }
 
+                //Once rosters are complete, option to begin game is presented
                 if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
                         && FantasyFootballRosterA.getInstance().getFullRosterA().size()==4) {
                     mGameEngineTitle.setText("<-Click to start game!->");
                     mRequestCode = 3;
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putInt("prefs", mRequestCode);
+                    editor.commit();
                 }
 
                 //Search results are reset
@@ -269,13 +276,19 @@ public class MainActivity extends AppCompatActivity {
                     FantasyFootballRosterB.getInstance().addPlayerB(newPlayer);
                     mFFBRosterArrayAdapterB.notifyDataSetChanged();
                     mRequestCode=1;
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putInt("prefs", mRequestCode);
+                    editor.commit();
                 }
 
-
+                //Once rosters are complete, option to begin game is presented
                 if(FantasyFootballRosterA.getInstance().getFullRosterA().size()==FantasyFootballRosterB.getInstance().getFullRosterB().size()
                         && FantasyFootballRosterA.getInstance().getFullRosterA().size()==4){
                     mGameEngineTitle.setText("<-Rosters ready, click to Kick-off!->");
                     mRequestCode = 3;
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putInt("prefs", mRequestCode);
+                    editor.commit();
                 }
 
                 //Search results are reset
@@ -307,29 +320,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //onPause overridden to save the RequestCode in sharedPreferences to save the player turn
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences.Editor editor = mPrefs.edit();
-        editor.putInt("prefs",mRequestCode);
-        editor.apply();
-    }
-
     //GameEngineMethod called when GameEngineTextView clicked to start draft & launch GameActivity
     public void gameEngineFacilitator(){
         if(mRequestCode==0){
             int coinFlip = mGameEngine.nextInt(2);
             if (coinFlip==0){
                 mGameEngineTitle.setText("Player 1 draft");
-                SharedPreferences.Editor editor = mPrefs.edit();
                 mRequestCode = 1;
+                SharedPreferences.Editor editor = mPrefs.edit();
                 editor.putInt("prefs",mRequestCode);
                 editor.commit();
             } else {
                 mGameEngineTitle.setText("Player 2 draft");
-                SharedPreferences.Editor editor = mPrefs.edit();
                 mRequestCode = 2;
+                SharedPreferences.Editor editor = mPrefs.edit();
                 editor.putInt("prefs",mRequestCode);
                 editor.commit();
             }
