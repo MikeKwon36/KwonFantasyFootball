@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="35dp"
         android:gravity="center_horizontal">
 
         <LinearLayout
@@ -158,5 +158,191 @@
             android:textColor="#ffffff"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/xmlGameStatsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:gravity="center_horizontal"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:text="GAME STATS"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/xmlGameStatsPlayerATitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textColor="#07de03"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="Player(A)"/>
+        <TextView
+            android:id="@+id/xmlGameStatsPlayerATDs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:textColor="#07de03"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="TD's "/>
+        <TextView
+            android:id="@+id/xmlGameStatsPlayerBTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textColor="#07de03"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="Player(B)"/>
+        <TextView
+            android:id="@+id/xmlGameStatsPlayerBTDs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:textColor="#07de03"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="TD's "/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/xmlPlayerA_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="TBD"/>
+        <TextView
+            android:id="@+id/xmlPlayerA_1_TDs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="00"/>
+        <TextView
+            android:id="@+id/xmlPlayerB_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="TBD"/>
+        <TextView
+            android:id="@+id/xmlPlayerB_1_TDs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="00"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/xmlPlayerA_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="TBD"/>
+        <TextView
+            android:id="@+id/xmlPlayerA_2_TDs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="00"/>
+        <TextView
+            android:id="@+id/xmlPlayerB_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="TBD"/>
+        <TextView
+            android:id="@+id/xmlPlayerB_2_TDs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="00"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/xmlPlayerA_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="TBD"/>
+        <TextView
+            android:id="@+id/xmlPlayerA_3_TDs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="00"/>
+        <TextView
+            android:id="@+id/xmlPlayerB_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="TBD"/>
+        <TextView
+            android:id="@+id/xmlPlayerB_3_TDs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="00"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/xmlGameFacilitator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:gravity="center_horizontal"
+        android:textColor="#f2ab3a"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:text="TBD"/>
 
 </LinearLayout>

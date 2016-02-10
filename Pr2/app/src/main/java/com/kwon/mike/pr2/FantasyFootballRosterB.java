@@ -24,19 +24,19 @@ public class FantasyFootballRosterB {
         return mInstance;
     }
 
-    public void addPlayerB(Player player){
+    public static void addPlayerB(Player player){
         mFantasyFootballRosterBArray.add(player);
     }
-    public void removePlayerB(Player player){
+    public static void removePlayerB(Player player){
         mFantasyFootballRosterBArray.remove(player);
     }
-    public void removePlayerB(int index){
+    public static void removePlayerB(int index){
         mFantasyFootballRosterBArray.remove(index);
     }
-    public Player getPlayerB(int index){
+    public static Player getPlayerB(int index){
         return mFantasyFootballRosterBArray.get(index);
     }
-    public ArrayList<Player> getFullRosterB(){
+    public static ArrayList<Player> getFullRosterB(){
         return mFantasyFootballRosterBArray;
     }
 }

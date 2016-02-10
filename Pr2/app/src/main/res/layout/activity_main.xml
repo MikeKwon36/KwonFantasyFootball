@@ -33,7 +33,7 @@
             android:gravity="center_horizontal"
             android:textStyle="bold"
             android:textColor="#f2ab3a"
-            android:textSize="25sp"/>
+            android:textSize="20sp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="40dp">
             <Spinner
                 android:id="@+id/xmlFantasyRoster1Spinner"
                 android:layout_width="match_parent"

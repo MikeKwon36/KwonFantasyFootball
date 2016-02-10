@@ -13,12 +13,9 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -27,7 +24,9 @@
             android:name=".ResultDetailActivity"
             android:label="@string/title_activity_result_detail"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GameEngineActivity"></activity>
+        <activity
+            android:name=".GameEngineActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
