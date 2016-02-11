@@ -180,16 +180,20 @@ public class GameEngineActivity extends AppCompatActivity {
 
         //QB's add completion% to the multiplier, WR's&RB's add their catchRatios... all ratios are
         // reduced by the random weather variable
-        int weather = 0;
-        if(mWeather.equals(getResources().getString(R.string.weatherBlizzard))){weather+=50;}
-        else if (mWeather.equals(getResources().getString(R.string.weatherRainy))){weather+=25;}
+        int weather = 15;
+        if(mWeather.equals(getResources().getString(R.string.weatherBlizzard))){weather+=35;}
+        else if (mWeather.equals(getResources().getString(R.string.weatherRainy))){weather+=10;}
         if(position.equals(getResources().getString(R.string.posQB))){
             multiplier = array.get(rosterNum).getPlayerStats().getCompletionPercentage(array.get(rosterNum))-weather;
-            multiplier += array.get(rosterNumOfTeammate1).getPlayerStats().getCompletionPercentage(array.get(rosterNumOfTeammate1))-weather;
-            multiplier += array.get(rosterNumOfTeammate2).getPlayerStats().getCompletionPercentage(array.get(rosterNumOfTeammate2))-weather;
+            multiplier += array.get(rosterNumOfTeammate1).getPlayerStats().getCatchRatio(array.get(rosterNumOfTeammate1))-weather;
+            multiplier += array.get(rosterNumOfTeammate2).getPlayerStats().getCatchRatio(array.get(rosterNumOfTeammate2))-weather;
         } else {
-            multiplier = array.get(rosterNum).getPlayerStats().getCatchRatio(array.get(rosterNum));
-            multiplier = multiplier / weather;
+            multiplier = array.get(rosterNum).getPlayerStats().getCatchRatio(array.get(rosterNum))-weather;
+            if (array.get(rosterNumOfTeammate1).getmPosition().equals(getResources().getString(R.string.posQB))){
+                multiplier += array.get(rosterNumOfTeammate1).getPlayerStats().getCompletionPercentage(array.get(rosterNumOfTeammate1))-weather;
+            } else {
+                multiplier += array.get(rosterNumOfTeammate2).getPlayerStats().getCompletionPercentage(array.get(rosterNumOfTeammate2))-weather;
+            }
         }
 
         //Strength/speed stat unaffected by weather conditions
