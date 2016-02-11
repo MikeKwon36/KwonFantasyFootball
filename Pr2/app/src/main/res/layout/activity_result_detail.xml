@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#03c203"
+                android:textColor="#02259b"
                 android:textStyle="bold"
                 android:text="@string/CheckRosterButton"/>
             <Button
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#03c203"
+                android:textColor="#02259b"
                 android:textStyle="bold"
                 android:text="@string/GoogleSearchButton"/>
         </LinearLayout>

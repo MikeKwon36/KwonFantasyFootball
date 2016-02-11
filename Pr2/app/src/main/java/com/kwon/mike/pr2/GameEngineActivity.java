@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameEngineActivity extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class GameEngineActivity extends AppCompatActivity {
     private Cursor mCursor;
     private DBSQLiteOpenHelper mHelper;
     private int mGamePhase, mCalcTeamAScoreSum, mCalcA1TD, mCalcA2TD, mCalcA3TD, mCalcTeamBScoreSum, mCalcB1TD, mCalcB2TD, mCalcB3TD;
+    private int mCalcA1multiplier,mCalcA2multiplier,mCalcA3multiplier,mCalcB1multiplier,mCalcB2multiplier,mCalcB3multiplier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +74,14 @@ public class GameEngineActivity extends AppCompatActivity {
                         public void onTick(long millisUntilFinished) {
                             mGamePhase += 1;
                             mQuarter.setText(String.valueOf(mGamePhase));
-                            mCalcA1TD += (mCalcA1TD + (mGameEngine.nextInt(2)*mGameEngine.nextInt(2)));
-                            mCalcA2TD += (mCalcA2TD + (mGameEngine.nextInt(2)*mGameEngine.nextInt(2)));
-                            mCalcA3TD += (mCalcA3TD + (mGameEngine.nextInt(2)*mGameEngine.nextInt(2)));
-                            mCalcB1TD += (mCalcB1TD + (mGameEngine.nextInt(2)*mGameEngine.nextInt(2)));
-                            mCalcB2TD += (mCalcB2TD + (mGameEngine.nextInt(2)*mGameEngine.nextInt(2)));
-                            mCalcB3TD += (mCalcB3TD + (mGameEngine.nextInt(2)*mGameEngine.nextInt(2)));
-                            mCalcTeamAScoreSum = (7 * mCalcA1TD) + (7 * mCalcA2TD) + (7 * mCalcA3TD);
-                            mCalcTeamBScoreSum = (7 * mCalcB1TD) + (7 * mCalcB2TD) + (7 * mCalcB3TD);
+                            mCalcA1TD += (mCalcA1TD + (mGameEngine.nextInt(2)*mCalcA1multiplier));
+                            mCalcA2TD += (mCalcA2TD + (mGameEngine.nextInt(2)*mCalcA2multiplier));
+                            mCalcA3TD += (mCalcA3TD + (mGameEngine.nextInt(2)*mCalcA3multiplier));
+                            mCalcB1TD += (mCalcB1TD + (mGameEngine.nextInt(2)*mCalcB1multiplier));
+                            mCalcB2TD += (mCalcB2TD + (mGameEngine.nextInt(2)*mCalcB2multiplier));
+                            mCalcB3TD += (mCalcB3TD + (mGameEngine.nextInt(2)*mCalcB3multiplier));
+                            mCalcTeamAScoreSum = 7 * (mCalcA1TD + mCalcA2TD + mCalcA3TD);
+                            mCalcTeamBScoreSum = 7 * (mCalcB1TD + mCalcB2TD + mCalcB3TD);
                             mPlayerA_1TD.setText(String.valueOf(mCalcA1TD));
                             mPlayerA_2TD.setText(String.valueOf(mCalcA2TD));
                             mPlayerA_3TD.setText(String.valueOf(mCalcA3TD));
@@ -142,7 +144,7 @@ public class GameEngineActivity extends AppCompatActivity {
         mPlayerB_3TD.setText(String.valueOf(mCalcB3TD));
     }
 
-    //Method to initialize all scoring tracker variables to zero
+    //Method to initialize all score tracking & calculation variables
     private void initializeScoreTrackers(){
         mGamePhase=0;
         mCalcTeamAScoreSum=0;
@@ -153,5 +155,18 @@ public class GameEngineActivity extends AppCompatActivity {
         mCalcB1TD=0;
         mCalcB2TD=0;
         mCalcB3TD=0;
+
+        mCalcA1multiplier=;
+        mCalcA2multiplier=;
+        mCalcA3multiplier=;
+
+        mCalcB1multiplier=;
+        mCalcB2multiplier=;
+        mCalcB3multiplier=;
+    }
+
+    private int calculateMultiplier(ArrayList<Player> array, int rosterNum){
+
+        return
     }
 }

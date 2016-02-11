@@ -21,6 +21,38 @@ import static org.junit.Assert.assertTrue;
 public class KwonProject2UnitTests {
 
     @Test
+    public void testIfPlayerStatisticsGetCompletionCorrect(){
+        Player test = new Player("Peyton Manning","QB","Denver Broncos","Bio",1);
+        int expectedValue = 60;
+        int actualValue = test.getPlayerStats().getCompletionPercentage(test);
+        assertEquals(expectedValue,actualValue);
+    }
+
+    @Test
+    public void testIfPlayerStatisticsGetCatchRatioCorrect(){
+        Player test = new Player("Antonio Brown","WR","Pittsburgh Steelers","Bio",1);
+        int expectedValue = 60;
+        int actualValue = test.getPlayerStats().getCatchRatio(test);
+        assertEquals(expectedValue,actualValue);
+    }
+
+    @Test
+    public void testIfPlayerStatisticsGetStrengthCorrect(){
+        Player test = new Player("Doug Martin","RB","Tampa Bay Buccaneers","Bio",1);
+        int expectedValue = 90;
+        int actualValue = test.getPlayerStats().getStrength_Speed(test);
+        assertEquals(expectedValue,actualValue);
+    }
+
+    @Test
+    public void testIfPlayerStatisticsGetHomefieldCorrect(){
+        Player test = new Player("Doug Martin","RB","Tampa Bay Buccaneers","Bio",1);
+        Boolean expectedValue = true;
+        Boolean actualValue = test.getPlayerStats().getHomefieldAdvantage(test, "Raymond James Stadium, FL");
+        assertEquals(expectedValue,actualValue);
+    }
+
+    @Test
     public void testIfPlayerClassGetNameMethodCorrect(){
         Player test = new Player("Mike","WR","NYJ","Bio",1);
         String expectedValue = "Mike";
