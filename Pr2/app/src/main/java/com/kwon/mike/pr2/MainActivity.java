@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTitle, mRosterTitle,mRoster2Title, mSearchTitle, mGameEngineTitle;
+    private TextView mTitle, mSearchTitle, mGameEngineTitle;
     private DBSQLiteOpenHelper mHelper;
     private Cursor mCursor;
     private Spinner mRosterASpinner,mRosterBSpinner;
@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         mTitle = (TextView)findViewById(R.id.xmlTitle);
         mGameEngineTitle = (TextView)findViewById(R.id.xmlGameEngineTitle);
-        mRosterTitle = (TextView)findViewById(R.id.xmlRosterTitle);
-        mRoster2Title = (TextView)findViewById(R.id.xmlRoster2Title);
         mRosterASpinner = (Spinner)findViewById(R.id.xmlFantasyRoster1Spinner);
         mRosterBSpinner = (Spinner)findViewById(R.id.xmlFantasyRoster2Spinner);
         mSearchTitle = (TextView)findViewById(R.id.xmlSearchTitle);

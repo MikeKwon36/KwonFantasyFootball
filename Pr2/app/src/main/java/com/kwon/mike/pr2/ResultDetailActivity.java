@@ -56,19 +56,11 @@ public class ResultDetailActivity extends AppCompatActivity {
         if(databaseID>=0){
             mCursor = mHelper.searchPlayerByid(databaseID);
             mCursor.moveToFirst();
-            mName.setText("Name: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_NAME)));
-            mPosition.setText("Position: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_POSITION)));
-            mTeam.setText("Team: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_TEAM)));
-            mBio.setText("Bio: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_BIO)));
-            mImage.setImageResource(mCursor.getInt(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_IMAGE)));
+            setScreenElements();
         } else {
             mCursor = mHelper.searchPlayerByName(databaseName);
             mCursor.moveToFirst();
-            mName.setText("Name: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_NAME)));
-            mPosition.setText("Position: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_POSITION)));
-            mTeam.setText("Team: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_TEAM)));
-            mBio.setText("Bio: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_BIO)));
-            mImage.setImageResource(mCursor.getInt(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_IMAGE)));
+            setScreenElements();
         }
 
         //Floating Action Button sends database ID to MainActivity to add player to roster
@@ -117,4 +109,11 @@ public class ResultDetailActivity extends AppCompatActivity {
         });
     }
 
+    public void setScreenElements(){
+        mName.setText("Name: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_NAME)));
+        mPosition.setText("Position: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_POSITION)));
+        mTeam.setText("Team: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_TEAM)));
+        mBio.setText("Bio: " + mCursor.getString(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_BIO)));
+        mImage.setImageResource(mCursor.getInt(mCursor.getColumnIndex(DBSQLiteOpenHelper.COL_IMAGE)));
+    }
 }

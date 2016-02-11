@@ -4,8 +4,6 @@
     <string name="search_hint">Search for a player</string>
 
     <string name="mainAppTitleTV">KWON FANTASY FOOTBALL</string>
-    <string name="mainFantasyRosterTitleTV">ROSTER A</string>
-    <string name="mainFantasyRoster2TitleTV">ROSTER B</string>
     <string name="mainSearchResultsTitleTV">PLAYERS</string>
 
     <string name="toastPlayerDuplicate">Player already drafted!</string>
@@ -52,6 +50,12 @@
     <string name="weatherBlizzard">Blizzard</string>
     <string name="weatherRainy">Rainy</string>
     <string name="weatherSunny">Sunny</string>
+
+    <string name="gameEngineKickOff">[Click here to Kick-off]</string>
+    <string name="gameEngineInGame">Game in Progress...</string>
+    <string name="gameEngineAwins">Team A Wins!</string>
+    <string name="gameEngineBwins">Team B Wins!</string>
+    <string name="gameEngineTie">You tied... lame!</string>
 
     <string name="TomBradyBio">Thomas Edward Patrick Brady, Jr. (born August 3, 1977) is an American football quarterback
         for the New England Patriots of the National Football League (NFL). After playing college football for the University of Michigan,
