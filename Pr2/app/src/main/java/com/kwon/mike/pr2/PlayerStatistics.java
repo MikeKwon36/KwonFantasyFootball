@@ -16,14 +16,14 @@ public class PlayerStatistics {
 
     //Getter methods include switch statements to return the appropriate statistic based on the Player object calling it
     public int getCompletionPercentage(Player player) {
-        switch (player.getmName()){
-            case "Peyton Manning":
+        switch (player.getmName().toUpperCase()){
+            case "PEYTON MANNING":
                 mCompletionPercentage = 60;
                 break;
-            case "Tom Brady":
+            case "TOM BRADY":
                 mCompletionPercentage = 50;
                 break;
-            case "Cam Newton":
+            case "CAM NEWTON":
                 mCompletionPercentage = 40;
                 break;
             default:
@@ -33,23 +33,23 @@ public class PlayerStatistics {
         return mCompletionPercentage;
     }
     public int getCatchRatio(Player player) {
-        switch (player.getmName()){
-            case "Antonio Brown":
+        switch (player.getmName().toUpperCase()){
+            case "ANTONIO BROWN":
                 mCatchRatio = 60;
                 break;
-            case "Mike Kwon":
+            case "MIKE KWON":
                 mCatchRatio = 50;
                 break;
-            case "Brandon Marshall":
+            case "BRANDON MARSHALL":
                 mCatchRatio = 40;
                 break;
-            case "Todd Gurley":
+            case "TODD GURLEY":
                 mCatchRatio = 30;
                 break;
-            case "Adrian Peterson":
+            case "ADRIAN PETERSON":
                 mCatchRatio = 20;
                 break;
-            case "Doug Martin":
+            case "DOUG MARTIN":
                 mCatchRatio = 10;
                 break;
             default:
@@ -60,31 +60,31 @@ public class PlayerStatistics {
     }
     public int getStrength_Speed(Player player) {
         switch (player.getmName()){
-            case "Doug Martin":
+            case "DOUG MARTIN":
                 mStrength_Speed = 90;
                 break;
-            case "Adrian Peterson":
+            case "ADRIAN PETERSON":
                 mStrength_Speed = 80;
                 break;
-            case "Todd Gurley":
+            case "TODD GURLEY":
                 mStrength_Speed = 70;
                 break;
-            case "Cam Newton":
+            case "CAM NEWTON":
                 mStrength_Speed = 60;
                 break;
-            case "Brandon Marshall":
+            case "BRANDON MARSHALL":
                 mStrength_Speed = 60;
                 break;
-            case "Mike Kwon":
+            case "MIKE KWON":
                 mStrength_Speed = 50;
                 break;
-            case "Tom Brady":
+            case "TOM BRADY":
                 mStrength_Speed = 50;
                 break;
-            case "Antonio Brown":
+            case "ANTONIO BROWN":
                 mStrength_Speed = 40;
                 break;
-            case "Peyton Manning":
+            case "PEYTON MANNING":
                 mStrength_Speed = 40;
                 break;
             default:
@@ -94,15 +94,15 @@ public class PlayerStatistics {
         return mStrength_Speed;
     }
     public boolean getHomefieldAdvantage(Player player, String stadium) {
-        if(player.getmName().equals("Brandon Marshall") && stadium.equals("MetLife Stadium, NY/NJ")){mHomefieldAdvantage=true;}
-        else if(player.getmName().equals("Peyton Manning") && stadium.equals("MileHigh Stadium, CO")){mHomefieldAdvantage=true;}
-        else if(player.getmName().equals("Cam Newton") && stadium.equals("Bank of America Stadium, NC")){mHomefieldAdvantage=true;}
-        else if(player.getmName().equals("Tom Brady") && stadium.equals("Gillette Stadium, MA")){mHomefieldAdvantage=true;}
-        else if(player.getmName().equals("Antonio Brown") && stadium.equals("Heinz Field, PA")){mHomefieldAdvantage=true;}
-        else if(player.getmName().equals("Doug Martin") && stadium.equals("Raymond James Stadium, FL")){mHomefieldAdvantage=true;}
-        else if(player.getmName().equals("Adrian Peterson") && stadium.equals("U.S. Bank Stadium, MN")){mHomefieldAdvantage=true;}
-        else if(player.getmName().equals("Mike Kwon") && stadium.equals("Fauver Stadium, ROC")){mHomefieldAdvantage=true;}
-        else if(player.getmName().equals("Todd Gurley") && stadium.equals("Los Angeles Entertainment Center, CA")){mHomefieldAdvantage=true;}
+        if(player.getmName().toUpperCase().equals("BRANDON MARSHALL") && stadium.equals("MetLife Stadium, NY/NJ")){mHomefieldAdvantage=true;}
+        else if(player.getmName().toUpperCase().equals("PEYTON MANNING") && stadium.equals("MileHigh Stadium, CO")){mHomefieldAdvantage=true;}
+        else if(player.getmName().toUpperCase().equals("CAM NEWTON") && stadium.equals("Bank of America Stadium, NC")){mHomefieldAdvantage=true;}
+        else if(player.getmName().toUpperCase().equals("TOM BRADY") && stadium.equals("Gillette Stadium, MA")){mHomefieldAdvantage=true;}
+        else if(player.getmName().toUpperCase().equals("ANTONIO BROWN") && stadium.equals("Heinz Field, PA")){mHomefieldAdvantage=true;}
+        else if(player.getmName().toUpperCase().equals("DOUG MARTIN") && stadium.equals("Raymond James Stadium, FL")){mHomefieldAdvantage=true;}
+        else if(player.getmName().toUpperCase().equals("ADRIAN PETERSON") && stadium.equals("U.S. Bank Stadium, MN")){mHomefieldAdvantage=true;}
+        else if(player.getmName().toUpperCase().equals("MIKE KWON") && stadium.equals("Fauver Stadium, ROC")){mHomefieldAdvantage=true;}
+        else if(player.getmName().toUpperCase().equals("TODD GURLEY") && stadium.equals("Los Angeles Entertainment Center, CA")){mHomefieldAdvantage=true;}
         return mHomefieldAdvantage;
     }
 

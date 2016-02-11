@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -67,16 +68,16 @@ public class GameEngineActivity extends AppCompatActivity {
                 // applying their individual multipliers against randomly generated scores.
                 if (mGamePhase == 0) {
                     mGameFacilitator.setText(getResources().getString(R.string.gameEngineInGame));
-                    new CountDownTimer(25000, 5000) {
+                    new CountDownTimer(15000, 3000) {
                         public void onTick(long millisUntilFinished) {
                             mGamePhase += 1;
                             mQuarter.setText(String.valueOf(mGamePhase));
-                            mCalcA1TD += (mCalcA1TD + (mGameEngine.nextInt(2)*mCalcA1multiplier));
-                            mCalcA2TD += (mCalcA2TD + (mGameEngine.nextInt(2)*mCalcA2multiplier));
-                            mCalcA3TD += (mCalcA3TD + (mGameEngine.nextInt(2)*mCalcA3multiplier));
-                            mCalcB1TD += (mCalcB1TD + (mGameEngine.nextInt(2)*mCalcB1multiplier));
-                            mCalcB2TD += (mCalcB2TD + (mGameEngine.nextInt(2)*mCalcB2multiplier));
-                            mCalcB3TD += (mCalcB3TD + (mGameEngine.nextInt(2)*mCalcB3multiplier));
+                            mCalcA1TD += (mGameEngine.nextInt(2)*mCalcA1multiplier);
+                            mCalcA2TD += (mGameEngine.nextInt(2)*mCalcA2multiplier);
+                            mCalcA3TD += (mGameEngine.nextInt(2)*mCalcA3multiplier);
+                            mCalcB1TD += (mGameEngine.nextInt(2)*mCalcB1multiplier);
+                            mCalcB2TD += (mGameEngine.nextInt(2)*mCalcB2multiplier);
+                            mCalcB3TD += (mGameEngine.nextInt(2)*mCalcB3multiplier);
                             mCalcTeamAScoreSum = 7 * (mCalcA1TD + mCalcA2TD + mCalcA3TD);
                             mCalcTeamBScoreSum = 7 * (mCalcB1TD + mCalcB2TD + mCalcB3TD);
                             mPlayerA_1TD.setText(String.valueOf(mCalcA1TD));
@@ -151,64 +152,64 @@ public class GameEngineActivity extends AppCompatActivity {
         mCalcB1TD=0;
         mCalcB2TD=0;
         mCalcB3TD=0;
-        mCalcA1multiplier=calculateMultiplier(FantasyFootballRosterA.getFullRosterA(),1);
-        mCalcA2multiplier=calculateMultiplier(FantasyFootballRosterA.getFullRosterA(),2);
-        mCalcA3multiplier=calculateMultiplier(FantasyFootballRosterA.getFullRosterA(),3);
-        mCalcB1multiplier=calculateMultiplier(FantasyFootballRosterB.getFullRosterB(),1);
-        mCalcB2multiplier=calculateMultiplier(FantasyFootballRosterB.getFullRosterB(),2);
-        mCalcB3multiplier=calculateMultiplier(FantasyFootballRosterB.getFullRosterB(),3);
+        mCalcA1multiplier=calculateMultiplier(FantasyFootballRosterA.getFullRosterA(), 1);
+        mCalcA2multiplier=calculateMultiplier(FantasyFootballRosterA.getFullRosterA(), 2);
+        mCalcA3multiplier=calculateMultiplier(FantasyFootballRosterA.getFullRosterA(), 3);
+        mCalcB1multiplier=calculateMultiplier(FantasyFootballRosterB.getFullRosterB(), 1);
+        mCalcB2multiplier=calculateMultiplier(FantasyFootballRosterB.getFullRosterB(), 2);
+        mCalcB3multiplier=calculateMultiplier(FantasyFootballRosterB.getFullRosterB(), 3);
     }
 
     //Method to build a player's scoring multiplier based on their stats and game conditions
     private int calculateMultiplier(ArrayList<Player> array, int rosterNum){
         String position = array.get(rosterNum).getmPosition();
-        int multiplier = 0;
 
         //Code to identify the roster numbers of the other drafted players
         int rosterNumOfTeammate1;
         int rosterNumOfTeammate2;
-        if (rosterNum==0){
+        if (rosterNum==1){
+            rosterNumOfTeammate1=2;
+            rosterNumOfTeammate2=3;
+        } else if (rosterNum==2){
+            rosterNumOfTeammate1=1;
+            rosterNumOfTeammate2=3;
+        } else {
             rosterNumOfTeammate1=1;
             rosterNumOfTeammate2=2;
-        } else if (rosterNum==1){
-            rosterNumOfTeammate1=0;
-            rosterNumOfTeammate2=2;
-        } else {
-            rosterNumOfTeammate1=0;
-            rosterNumOfTeammate2=1;
         }
 
         //QB's add completion% to the multiplier, WR's&RB's add their catchRatios... all ratios are
         // reduced by the random weather variable
-        int weather = 15;
-        if(mWeather.equals(getResources().getString(R.string.weatherBlizzard))){weather+=35;}
-        else if (mWeather.equals(getResources().getString(R.string.weatherRainy))){weather+=10;}
+        int weather = 0;
+        if(mWeather.getText().toString().equals(getResources().getString(R.string.weatherBlizzard))){weather+=15;}
+        if(mWeather.getText().toString().equals(getResources().getString(R.string.weatherRainy))){weather+=10;}
+
+        int multiplier;
         if(position.equals(getResources().getString(R.string.posQB))){
-            multiplier = array.get(rosterNum).getPlayerStats().getCompletionPercentage(array.get(rosterNum))-weather;
-            multiplier += array.get(rosterNumOfTeammate1).getPlayerStats().getCatchRatio(array.get(rosterNumOfTeammate1))-weather;
-            multiplier += array.get(rosterNumOfTeammate2).getPlayerStats().getCatchRatio(array.get(rosterNumOfTeammate2))-weather;
+            multiplier = array.get(rosterNum).getPlayerStats().getCompletionPercentage(array.get(rosterNum)) - weather
+                    + array.get(rosterNumOfTeammate1).getPlayerStats().getCatchRatio(array.get(rosterNumOfTeammate1)) - weather
+                    + array.get(rosterNumOfTeammate2).getPlayerStats().getCatchRatio(array.get(rosterNumOfTeammate2)) - weather;
         } else {
-            multiplier = array.get(rosterNum).getPlayerStats().getCatchRatio(array.get(rosterNum))-weather;
+            multiplier = array.get(rosterNum).getPlayerStats().getCatchRatio(array.get(rosterNum)) - weather;
             if (array.get(rosterNumOfTeammate1).getmPosition().equals(getResources().getString(R.string.posQB))){
-                multiplier += array.get(rosterNumOfTeammate1).getPlayerStats().getCompletionPercentage(array.get(rosterNumOfTeammate1))-weather;
+                multiplier = multiplier + array.get(rosterNumOfTeammate1).getPlayerStats().getCompletionPercentage(array.get(rosterNumOfTeammate1))-weather;
             } else {
-                multiplier += array.get(rosterNumOfTeammate2).getPlayerStats().getCompletionPercentage(array.get(rosterNumOfTeammate2))-weather;
+                multiplier = multiplier + array.get(rosterNumOfTeammate2).getPlayerStats().getCompletionPercentage(array.get(rosterNumOfTeammate2))-weather;
             }
         }
 
         //Strength/speed stat unaffected by weather conditions
-        multiplier += array.get(rosterNum).getPlayerStats().getStrength_Speed(array.get(rosterNum));
+        multiplier = multiplier + array.get(rosterNum).getPlayerStats().getStrength_Speed(array.get(rosterNum));
 
         //Multiplier changed into a TD index
-        multiplier = multiplier/50;
+        multiplier = multiplier/120;
 
-        //Any player playing in his home field automatically has 1 added to their scoring multiplier
-        if(array.get(rosterNum).getPlayerStats().getHomefieldAdvantage(
-                array.get(rosterNum), mStadium.getText().toString())
-                ){
-            multiplier+=1;
+        //Any player playing in his home field automatically has at least a 1 scoring multiplier
+        if(array.get(rosterNum).getPlayerStats().getHomefieldAdvantage(array.get(rosterNum), mStadium.getText().toString())){
+            if(multiplier==0){multiplier = 1;};
         }
 
         return multiplier;
     }
 }
+

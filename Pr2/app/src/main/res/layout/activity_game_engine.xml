@@ -28,14 +28,14 @@
                 android:id="@+id/xmlScoreBoardTeamATitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#bc6903"
+                android:background="#02259b"
                 android:paddingBottom="5dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="5dp"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textColor="#07de03"
+                android:textColor="#ffffff"
                 android:textSize="25sp"
                 android:text="TEAM A"/>
             <TextView
@@ -89,14 +89,14 @@
                 android:id="@+id/xmlScoreBoardTeamBTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#bc6903"
+                android:background="#02259b"
                 android:paddingBottom="5dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="5dp"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textColor="#07de03"
+                android:textColor="#ffffff"
                 android:textSize="25sp"
                 android:text="TEAM B"/>
             <TextView
@@ -124,7 +124,7 @@
             android:id="@+id/xmlStadiumLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#ffffff"
             android:text="Stadium: "/>
@@ -132,7 +132,7 @@
             android:id="@+id/xmlStadium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textColor="#ffffff"/>
     </LinearLayout>
 
@@ -146,7 +146,7 @@
             android:id="@+id/xmlWeatherLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#ffffff"
             android:text="Weather: "/>
@@ -154,7 +154,7 @@
             android:id="@+id/xmlWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textColor="#ffffff"/>
     </LinearLayout>
 
@@ -166,14 +166,14 @@
         android:gravity="center_horizontal"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:text="GAME STATS"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="5dp">
         <TextView
             android:id="@+id/xmlGameStatsPlayerATitle"
             android:layout_width="wrap_content"
@@ -227,13 +227,15 @@
                 android:id="@+id/xmlPlayerA_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
                 android:textColor="#ffffff"
+                android:paddingRight="-3dp"
+                android:layout_weight="5"
                 android:textSize="12sp"/>
             <TextView
                 android:id="@+id/xmlPlayerA_1_TDs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:layout_weight="1"
                 android:textColor="#ffffff"
                 android:textSize="15sp"/>
@@ -247,7 +249,8 @@
                 android:id="@+id/xmlPlayerB_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="5"
+                android:paddingRight="-3dp"
                 android:textColor="#ffffff"
                 android:textSize="12sp"/>
             <TextView
@@ -255,6 +258,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="right"
                 android:textColor="#ffffff"
                 android:textSize="15sp"/>
         </LinearLayout>
@@ -273,7 +277,8 @@
                 android:id="@+id/xmlPlayerA_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="5"
+                android:paddingRight="-3dp"
                 android:textColor="#ffffff"
                 android:textSize="12sp"/>
             <TextView
@@ -281,6 +286,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="right"
                 android:textColor="#ffffff"
                 android:textSize="15sp"/>
         </LinearLayout>
@@ -293,7 +299,8 @@
                 android:id="@+id/xmlPlayerB_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="5"
+                android:paddingRight="-3dp"
                 android:textColor="#ffffff"
                 android:textSize="12sp"/>
             <TextView
@@ -301,6 +308,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="right"
                 android:textColor="#ffffff"
                 android:textSize="15sp"/>
         </LinearLayout>
@@ -320,7 +328,8 @@
                 android:id="@+id/xmlPlayerA_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="5"
+                android:paddingRight="-3dp"
                 android:textColor="#ffffff"
                 android:textSize="12sp"/>
             <TextView
@@ -328,6 +337,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="right"
                 android:textColor="#ffffff"
                 android:textSize="15sp"/>
         </LinearLayout>
@@ -341,7 +351,8 @@
                 android:id="@+id/xmlPlayerB_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="5"
+                android:paddingRight="-3dp"
                 android:textColor="#ffffff"
                 android:textSize="12sp"/>
             <TextView
@@ -349,6 +360,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="right"
                 android:textColor="#ffffff"
                 android:textSize="15sp"/>
         </LinearLayout>
@@ -358,9 +370,9 @@
         android:id="@+id/xmlGameFacilitator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="75dp"
         android:gravity="center_horizontal"
-        android:textColor="#f2ab3a"
+        android:textColor="#02259b"
         android:textSize="25sp"
         android:textStyle="bold"/>
 

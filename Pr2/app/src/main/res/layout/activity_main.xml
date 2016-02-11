@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="10dp">
         <TextView
             android:id="@+id/xmlTitle"
             android:layout_width="match_parent"
@@ -34,12 +34,12 @@
             android:textStyle="bold"
             android:textColor="#f2ab3a"
             android:textSize="20sp"
-            android:layout_marginBottom="70dp"/>
+            android:layout_marginBottom="10dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="120dp">
             <Spinner
                 android:id="@+id/xmlFantasyRoster1Spinner"
                 android:layout_width="match_parent"
@@ -66,7 +66,7 @@
             android:id="@+id/xmlSearchListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="30dp"/>
     </LinearLayout>
 
 </RelativeLayout>
