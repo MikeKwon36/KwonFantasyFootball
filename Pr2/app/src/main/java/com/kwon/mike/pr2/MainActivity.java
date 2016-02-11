@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         mSearchListView.setAdapter(mCursorAdapter);
+        mSearchListView.setTextFilterEnabled(true);
 
         //OnItemClick listener aligns Search result list-clicks with database items by moving
         // cursor accordingly, and passing the selected player's id to the Details Activity

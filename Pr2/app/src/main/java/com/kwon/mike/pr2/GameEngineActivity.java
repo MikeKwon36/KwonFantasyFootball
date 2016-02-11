@@ -17,8 +17,6 @@ public class GameEngineActivity extends AppCompatActivity {
     private TextView mPlayerA_1, mPlayerA_1TD, mPlayerA_2, mPlayerA_2TD, mPlayerA_3, mPlayerA_3TD;
     private TextView mPlayerB_1, mPlayerB_1TD, mPlayerB_2, mPlayerB_2TD, mPlayerB_3, mPlayerB_3TD;
     private Random mGameEngine;
-    private Cursor mCursor;
-    private DBSQLiteOpenHelper mHelper;
     private int mGamePhase, mCalcTeamAScoreSum, mCalcA1TD, mCalcA2TD, mCalcA3TD, mCalcTeamBScoreSum, mCalcB1TD, mCalcB2TD, mCalcB3TD;
     private int mCalcA1multiplier,mCalcA2multiplier,mCalcA3multiplier,mCalcB1multiplier,mCalcB2multiplier,mCalcB3multiplier;
 
@@ -46,19 +44,18 @@ public class GameEngineActivity extends AppCompatActivity {
         mPlayerB_3 = (TextView) findViewById(R.id.xmlPlayerB_3);
         mPlayerB_3TD = (TextView) findViewById(R.id.xmlPlayerB_3_TDs);
         mGameEngine = new Random();
-        mHelper = DBSQLiteOpenHelper.getInstance(GameEngineActivity.this);
-        mCursor = mHelper.getPlayerList();
 
         //Set initial game parameters by generating Stadium and Weather conditions, setting the
         // player rosters, setting the mGameFacilitator TextView/Button text, and initializing the
-        // mGamePhase integer to zero
+        // scoring parameters & setting gamePhase to 0
+        mGamePhase=0;
         populateGameConditions();
         populateGameRosters();
-        initializeScoreTrackers();
         mQuarter.setText(String.valueOf(mGamePhase));
         mStadium.setText(StadiumWeatherVariables.getVariable(mGameEngine.nextInt(9)));
         mWeather.setText(StadiumWeatherVariables.getVariable(9 + mGameEngine.nextInt(3)));
         mGameFacilitator.setText(getResources().getString(R.string.gameEngineKickOff));
+        initializeScoreTrackers();
 
         //mGameFacilitator click intiates the game sequence and then returns the user to the
         // Main Activity upon completion (and confirming click)
@@ -146,7 +143,6 @@ public class GameEngineActivity extends AppCompatActivity {
 
     //Method to initialize all score tracking & calculation variables
     private void initializeScoreTrackers(){
-        mGamePhase=0;
         mCalcTeamAScoreSum=0;
         mCalcTeamBScoreSum=0;
         mCalcA1TD=0;
@@ -155,18 +151,60 @@ public class GameEngineActivity extends AppCompatActivity {
         mCalcB1TD=0;
         mCalcB2TD=0;
         mCalcB3TD=0;
-
-        mCalcA1multiplier=;
-        mCalcA2multiplier=;
-        mCalcA3multiplier=;
-
-        mCalcB1multiplier=;
-        mCalcB2multiplier=;
-        mCalcB3multiplier=;
+        mCalcA1multiplier=calculateMultiplier(FantasyFootballRosterA.getFullRosterA(),1);
+        mCalcA2multiplier=calculateMultiplier(FantasyFootballRosterA.getFullRosterA(),2);
+        mCalcA3multiplier=calculateMultiplier(FantasyFootballRosterA.getFullRosterA(),3);
+        mCalcB1multiplier=calculateMultiplier(FantasyFootballRosterB.getFullRosterB(),1);
+        mCalcB2multiplier=calculateMultiplier(FantasyFootballRosterB.getFullRosterB(),2);
+        mCalcB3multiplier=calculateMultiplier(FantasyFootballRosterB.getFullRosterB(),3);
     }
 
+    //Method to build a player's scoring multiplier based on their stats and game conditions
     private int calculateMultiplier(ArrayList<Player> array, int rosterNum){
+        String position = array.get(rosterNum).getmPosition();
+        int multiplier = 0;
 
-        return
+        //Code to identify the roster numbers of the other drafted players
+        int rosterNumOfTeammate1;
+        int rosterNumOfTeammate2;
+        if (rosterNum==0){
+            rosterNumOfTeammate1=1;
+            rosterNumOfTeammate2=2;
+        } else if (rosterNum==1){
+            rosterNumOfTeammate1=0;
+            rosterNumOfTeammate2=2;
+        } else {
+            rosterNumOfTeammate1=0;
+            rosterNumOfTeammate2=1;
+        }
+
+        //QB's add completion% to the multiplier, WR's&RB's add their catchRatios... all ratios are
+        // reduced by the random weather variable
+        int weather = 0;
+        if(mWeather.equals(getResources().getString(R.string.weatherBlizzard))){weather+=50;}
+        else if (mWeather.equals(getResources().getString(R.string.weatherRainy))){weather+=25;}
+        if(position.equals(getResources().getString(R.string.posQB))){
+            multiplier = array.get(rosterNum).getPlayerStats().getCompletionPercentage(array.get(rosterNum))-weather;
+            multiplier += array.get(rosterNumOfTeammate1).getPlayerStats().getCompletionPercentage(array.get(rosterNumOfTeammate1))-weather;
+            multiplier += array.get(rosterNumOfTeammate2).getPlayerStats().getCompletionPercentage(array.get(rosterNumOfTeammate2))-weather;
+        } else {
+            multiplier = array.get(rosterNum).getPlayerStats().getCatchRatio(array.get(rosterNum));
+            multiplier = multiplier / weather;
+        }
+
+        //Strength/speed stat unaffected by weather conditions
+        multiplier += array.get(rosterNum).getPlayerStats().getStrength_Speed(array.get(rosterNum));
+
+        //Multiplier changed into a TD index
+        multiplier = multiplier/50;
+
+        //Any player playing in his home field automatically has 1 added to their scoring multiplier
+        if(array.get(rosterNum).getPlayerStats().getHomefieldAdvantage(
+                array.get(rosterNum), mStadium.getText().toString())
+                ){
+            multiplier+=1;
+        }
+
+        return multiplier;
     }
 }

@@ -4,10 +4,10 @@ package com.kwon.mike.pr2;
  * Created by Todo on 2/11/2016.
  */
 public class PlayerStatistics {
-    int mCompletionPercentage = 0;
-    int mCatchRatio = 0;
-    int mStrength_Speed = 0;
-    boolean mHomefieldAdvantage = false;
+    private int mCompletionPercentage = 0;
+    private int mCatchRatio = 0;
+    private int mStrength_Speed = 0;
+    private boolean mHomefieldAdvantage = false;
 
     //Constructor for PlayerStatistics object that's embedded in every player object... purpose is
     // to assign player statistics at runtime via a separate class to allow for easy modifications in the future
