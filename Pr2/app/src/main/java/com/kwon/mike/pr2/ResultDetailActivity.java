@@ -39,7 +39,7 @@ public class ResultDetailActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         mHelper = DBSQLiteOpenHelper.getInstance(ResultDetailActivity.this);
 
-        //transitory array to show the current list of players on your fantasy roster
+        //transitory array to show a user's current fantasy roster in the dialog box
         if (FantasyFootballRosterA.getInstance().getFullRosterA().size()==0){
             mCurrentRoster = new String[]{"No players drafted yet"};
         } else {
@@ -50,7 +50,7 @@ public class ResultDetailActivity extends AppCompatActivity {
             }
         }
 
-        //Detail Screen populated based on either player ID or player name received
+        //Detail Screen populated based on either player ID(searchList click) or player name received (roster click)
         final int databaseID = getIntent().getIntExtra("id", -1);
         final String databaseName = getIntent().getStringExtra("Name");
         if(databaseID>=0){

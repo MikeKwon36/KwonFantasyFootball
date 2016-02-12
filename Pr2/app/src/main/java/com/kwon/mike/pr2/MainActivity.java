@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +26,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTitle, mSearchTitle, mGameEngineTitle;
+    private TextView mSearchTitle, mGameEngineTitle;
     private DBSQLiteOpenHelper mHelper;
     private Cursor mCursor;
     private Spinner mRosterASpinner,mRosterBSpinner;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<Player> mFFBRosterArrayAdapterA, mFFBRosterArrayAdapterB;
     private CursorAdapter mCursorAdapter;
     private Random mGameEngine;
-    private SharedPreferences mPrefs;
+    public SharedPreferences mPrefs;
     public int mRequestCode;
 
     @Override
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTitle = (TextView)findViewById(R.id.xmlTitle);
         mGameEngineTitle = (TextView)findViewById(R.id.xmlGameEngineTitle);
         mRosterASpinner = (Spinner)findViewById(R.id.xmlFantasyRoster1Spinner);
         mRosterBSpinner = (Spinner)findViewById(R.id.xmlFantasyRoster2Spinner);
@@ -165,7 +165,28 @@ public class MainActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        //Code to update search results dynamically as the User types
         searchView.setQueryHint("Search by Name/Position/Team");
+        searchView.setIconifiedByDefault(false);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {return false;}
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    mCursor = mHelper.getPlayerList();
+                    mCursorAdapter.swapCursor(mCursor);
+                }
+                else {
+                    mCursor = mHelper.searchPlayerByNameTeamPosition(newText);
+                    mCursorAdapter.swapCursor(mCursor);
+                }
+                return true;
+            }
+        });
         return true;
     }
 
@@ -301,7 +322,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //After game is played in the GameEngineActivity, rosters & MainActivity's gameEngine are reset
+        //After game is played in the GameEngineActivity, rosters, searchResults, and
+        // MainActivity's gameEngine facilitator are reset
         if (requestCode==3){
             if(resultCode == RESULT_OK){
                 FantasyFootballRosterA.getInstance().getFullRosterA().clear();
@@ -311,6 +333,9 @@ public class MainActivity extends AppCompatActivity {
                 FantasyFootballRosterB.getInstance().getFullRosterB().clear();
                 Player titleB = new Player("--Roster B--","","","",0);
                 FantasyFootballRosterB.getInstance().getFullRosterB().add(titleB);
+
+                mCursor = mHelper.getPlayerList();
+                mCursorAdapter.swapCursor(mCursor);
 
                 mGameEngineTitle.setText(getResources().getString(R.string.GameFlipCoin));
                 mRequestCode = 0;

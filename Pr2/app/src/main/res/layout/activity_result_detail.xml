@@ -5,18 +5,17 @@
     tools:context="com.kwon.mike.pr2.ResultDetailActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121111">
+    android:background="#000000">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#121111">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/xmlDetailImage"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:scaleType="fitCenter"/>
 
