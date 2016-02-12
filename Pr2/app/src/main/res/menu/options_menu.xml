@@ -8,10 +8,4 @@
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:title="Search" />
-    <item
-        android:id="@+id/searchFilter"
-        android:icon="@android:drawable/ic_menu_more"
-        app:showAsAction="collapseActionView|ifRoom"
-        android:actionViewClass="android.support.v7.widget.SearchView"
-        android:title="Filter"/>
 </menu>

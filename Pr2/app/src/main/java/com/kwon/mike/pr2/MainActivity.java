@@ -166,14 +166,14 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        //Code to update search results dynamically as the User types
-        searchView.setQueryHint("Search by Name/Position/Team");
+        searchView.setQueryHint("Name/Pos/Team");
         searchView.setIconifiedByDefault(false);
         searchView.setSubmitButtonEnabled(true);
+
+        //Code to update search results dynamically as the User types
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {return false;}
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (TextUtils.isEmpty(newText)) {
