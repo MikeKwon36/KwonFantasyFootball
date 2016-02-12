@@ -1,95 +1,45 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project #2: Neighborhood Guide App
+# **Android Development Immersive Project 2**
+## **Title: Fantasy Football Simulator**
+## **Developer: Mike Kwon**
+
 
 #### Overview
 
-Project 2 will really test your new skills, bringing four weeks of knowledge together to create an app that integrates many different technologies and principles. This app will allow the user to search for places in their neighborhood (descriptions and images) based on street names, neighborhood names, neighborhood types...it's up to you!
-
-**You will be working individually for this project**. The project will be spread across **three weeks**, with separate deliverables due at the end of each week. Although the deliverables will be separate, we will be incorporating them all into a single app, expanding upon the previous week's work. The first week will focus on the user interface, the second week on the back-end database, and the third will tie everything together.
+My second project is a Fantasy Football simulator that allows two users to find and save their favorite football players into their own fantasy rosters, which can then be used to play in a simulated fantasy football game.
 
 ---
 
-#### Requirements
+#### Main Activity
 
-Your work must:
+The Main Activity leverages a SQL Database to store player information that can be accessed via a cursor adapter and searchView.  Two Users alternate selecting players and storing their "favorites" into their own fantasy rosters.  Each users' favorite list (Fantasy Roster) is tracked via Singleton ArrayLists, that are displayed via Spinner Elements.  A searchView at the top of the screen facilitates search queries of the database and the search results are displayed in a cursor adapter at the bottom of the page.
 
-- Allow the user to search by **at least three different location-related criteria**
-- Show results in separate entries/pages to the user, including descriptions, images, and whatever else you like
-- Gather data for the search results from the database
-- Allow the user to favorite locations, and later view those favorites
-- Incorporate Material Design principles into your app
-- Incorporate Object Oriented principles into your app
-- Contain code comments, explaining the functionality behind sections of code
-- Include **at least 8** manual test cases in a separate text file
+Each User will be required to draft a Quarterback, a Wide Receiver, and a Running Back.  Once both Users satisfy their draft requirements, the draft will be closed and they will be prompted to begin the actual simulation.
 
-
-**Bonus:**
-
-- Incorporate more advanced Material Design principles into your UI
-- Add more complexity to the user's searches (possibly allowing more than one search criteria at a time)
-- Create a review system for user feedback at each location
+<img src="Screenshots/StartPage.png" width="150" height="250">
+<img src="Screenshots/StartPage2.png" width="150" height="250">
+<img src="Screenshots/SearchFilter.png" width="150" height="250">
 
 ---
 
-#### Necessary Deliverables
+#### Player Detail Activity
 
-**Week 4:**
+Every time a user selects a player in the Main Activity, the Player Detail screen loads with the full details associated with the player from the database.  The Player Detail Activity is given the player's database ID within the intent received, which it uses to pull the correct cursor data.  Within the Detail Screen itself, the user is given options to draft a player, review their fantasy rosters, and execute a Google Search on the player to see additional statistics.
 
-- A **completed, basic version of the user interface for your app**, with placeholder data and resources to fill out your screens.
-
-**Week 5:**
-
-- A new version of your app that **pulls information from a database** rather than placeholder data.
-- Manual tests for your code
-
-**Week 6:**
-
-- A final, working version of your app with more polish than the first week. Be creative!
-- A **git repository hosted on Github**, with frequent commits dating back to the **very beginning** of the project. Commit early, commit often.
-- **A ``readme.md`` file** describing what the app does, and any bugs that may exist.
-- One screenshot in the ``readme.md``
-- Text file with at least 8 manual test cases.
+<img src="Screenshots/PlayerDetail1.png" width="150" height="250">
+<img src="Screenshots/PlayerDetail2_CheckRoster.png" width="150" height="250">
 
 ---
 
-#### Suggested Ways to Get Started
+#### Game Activity
 
-- Complete as much of the layout as possible before working on your logic.
-- Write pseudocode before you write actual code.** Thinking through the logic of something helps.
-- Test functionality as soon as you complete it   
+Once the Fantasy Rosters are set, the Game Activity simulates a football game based off the fantasy rosters established in previous screens.  The Player statistics are generated from the "PlayerStatistics" class, which has an instance included in every "Player" class object.  The statistics are applied against the game engine which includes variables simulating game location (Each player has a home stadium) and weather conditions (sunny,rainy,snowy), which all impact the players' ability to score touchdowns in a game.
 
----
-
-### Useful Resources
-
-- [Android API Reference](http://developer.android.com/reference/packages.html)
-- [Android API Guides](http://developer.android.com/guide/index.html)
-- [Using SQLite in Android](http://developer.android.com/guide/topics/data/data-storage.html#db)
-- [Material Design details](http://www.google.com/design/spec/material-design/introduction.html#)
+<img src="Screenshots/GamePlayScreen.png" width="150" height="250">
+<img src="Screenshots/GamePlayScreen2.png" width="150" height="250">
 
 ---
 
-#### Example Deliverable
+#### Additional Content
 
-Below you can find an example of what the instructors' final product looks like. **Be creative with your own designs!**
-
-<p align="center">
-  <img src="screenshots/details.jpg">
-</p>
-
-<p align="center">
- <img src="screenshots/home.jpg">
-</p>
-
-#### Project Feedback + Evaluation
-
-
-Base on the requirements you can earn a maximum of 24 points on this project. Your instructors will score each of your technical requirements using the scale below:
-
-    Score | Expectations
-    ----- | ------------
-    **0** | _Incomplete._
-    **1** | _Does not meet expectations._
-    **2** | _Meets expectations, good job!_
-    **3** | _Exceeds expectations, you wonderful creature, you!_
-
- This will serve as a helpful overall gauge of whether you met the project goals, but __the more important scores are the individual ones__ above, which can help you identify where to focus your efforts for the next project!
+* A class of unit tests are provided to test the key methods leveraged across the application
+* An excel document of manual test cases are included, which also provide associated conditionals and user stories
