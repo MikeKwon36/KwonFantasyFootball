@@ -34,7 +34,8 @@
             android:textStyle="bold"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:contentDescription="This text details the current state of the draft"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,12 +44,14 @@
                 android:id="@+id/xmlFantasyRoster1Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:contentDescription="Team A's currently drafted players are listed here"/>
             <Spinner
                 android:id="@+id/xmlFantasyRoster2Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:contentDescription="Team B's currently drafted players are listed here"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -68,7 +71,8 @@
             android:textStyle="bold"
             android:textColor="#07de03"
             android:textSize="22sp"
-            android:text="@string/mainSearchResultsTitleTV"/>
+            android:text="@string/mainSearchResultsTitleTV"
+            android:contentDescription="The list of draftable players are below"/>
         <ListView
             android:id="@+id/xmlSearchListView"
             android:layout_width="match_parent"

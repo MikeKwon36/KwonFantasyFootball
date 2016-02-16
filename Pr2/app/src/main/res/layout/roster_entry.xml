@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="13dp"
         app:cardElevation="5dp"
-        app:cardBackgroundColor="#ffffff">
+        app:cardPreventCornerOverlap="true"
+        app:cardBackgroundColor="#ffffff"
+        android:contentDescription="This is a possible player to draft">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,21 +26,24 @@
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary"
+                android:contentDescription="This is a draftable player's name"/>
             <TextView
                 android:id="@+id/xmlPlayerPos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:textSize="14sp"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary"
+                android:contentDescription="This is a draftable player's position"/>
             <TextView
                 android:id="@+id/xmlPlayerTeam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textSize="14sp"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary"
+                android:contentDescription="This is a draftable player's team"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

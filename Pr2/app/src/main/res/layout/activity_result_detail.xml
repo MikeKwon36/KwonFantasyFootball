@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            android:contentDescription="This is a picture of the currently selected player"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
@@ -29,7 +30,8 @@
             android:layout_below="@id/xmlDetailImage"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:src="@android:drawable/ic_input_add" />
+            android:src="@android:drawable/ic_input_add"
+            android:contentDescription="This button lets you draft the currently selected player"/>
 
         <TextView
             android:id="@+id/xmlDetailName"
@@ -39,7 +41,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:contentDescription="This is the name of the currently selected player"/>
         <TextView
             android:id="@+id/xmlDetailPosition"
             android:layout_width="wrap_content"
@@ -47,7 +50,8 @@
             android:layout_below="@id/xmlDetailName"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:contentDescription="This is the position of the currently selected player"/>
         <TextView
             android:id="@+id/xmlDetailTeam"
             android:layout_width="wrap_content"
@@ -55,7 +59,8 @@
             android:layout_below="@id/xmlDetailPosition"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:contentDescription="This is the team of the currently selected player"/>
         <TextView
             android:id="@+id/xmlDetailBio"
             android:layout_width="wrap_content"
@@ -65,7 +70,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="15dp"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:contentDescription="This is the biography of the currently selected player"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,7 +88,8 @@
                 android:layout_weight="1"
                 android:textColor="#02259b"
                 android:textStyle="bold"
-                android:text="@string/CheckRosterButton"/>
+                android:text="@string/CheckRosterButton"
+                android:contentDescription="This button lets you check your current roster"/>
             <Button
                 android:id="@+id/xmlGooglePlayerButton"
                 android:layout_width="match_parent"
@@ -90,7 +97,8 @@
                 android:layout_weight="1"
                 android:textColor="#02259b"
                 android:textStyle="bold"
-                android:text="@string/GoogleSearchButton"/>
+                android:text="@string/GoogleSearchButton"
+                android:contentDescription="This button launches a google search for the currently selected player's stats"/>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>
