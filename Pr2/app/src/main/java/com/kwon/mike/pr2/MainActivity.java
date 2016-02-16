@@ -1,5 +1,6 @@
 package com.kwon.mike.pr2;
 
+import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,7 +24,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<Player> mFFBRosterArrayAdapterA, mFFBRosterArrayAdapterB;
     private CursorAdapter mCursorAdapter;
     private Random mGameEngine;
+    private android.support.v7.app.ActionBar mToolbar;
     public SharedPreferences mPrefs;
     public int mRequestCode;
 
@@ -48,7 +50,10 @@ public class MainActivity extends AppCompatActivity {
         mRosterBSpinner = (Spinner)findViewById(R.id.xmlFantasyRoster2Spinner);
         mSearchTitle = (TextView)findViewById(R.id.xmlSearchTitle);
         mSearchListView = (ListView)findViewById(R.id.xmlSearchListView);
-        mPrefs = getSharedPreferences("prefs",MODE_PRIVATE);
+        mToolbar = getSupportActionBar();
+
+        mToolbar.setTitle("");
+        mPrefs = getSharedPreferences("prefs", MODE_PRIVATE);
         mGameEngine = new Random();
         mRequestCode = 0;
 
@@ -163,10 +168,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu,menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.xmlActionBarSearch).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setQueryHint("Name/Pos/Team");
         searchView.setIconifiedByDefault(false);
         searchView.setSubmitButtonEnabled(true);
@@ -189,6 +194,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id==R.id.xmlActionBarShare){
+            Toast.makeText(MainActivity.this, "Draft results posted online!", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     //onNewIntent method overridden to execute database search which allows user to search database

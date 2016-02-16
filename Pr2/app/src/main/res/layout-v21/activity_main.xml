@@ -11,12 +11,20 @@
     android:background="@drawable/background"
     tools:context="com.kwon.mike.pr2.MainActivity">
 
+    <Toolbar
+        android:id="@+id/xmlToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:minHeight="?android:attr/actionBarSize">
+        
+    </Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="10dp">
         <TextView
             android:id="@+id/xmlTitle"
             android:layout_width="match_parent"
@@ -32,7 +40,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textStyle="bold"
-            android:textColor="@color/colorAccent"
+            android:textColor="#f2ab3a"
             android:textSize="20sp"
             android:layout_marginBottom="10dp"/>
         <LinearLayout

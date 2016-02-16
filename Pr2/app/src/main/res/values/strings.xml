@@ -3,7 +3,7 @@
     <string name="title_activity_result_detail">ResultDetailActivity</string>
     <string name="search_hint">Search for a player</string>
 
-    <string name="mainAppTitleTV">KWON FANTASY FOOTBALL</string>
+    <string name="mainAppTitleTV">Fantasy Football Simulator</string>
     <string name="mainSearchResultsTitleTV">PLAYERS</string>
 
     <string name="toastPlayerDuplicate">Player already drafted!</string>
