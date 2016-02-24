@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mSearchTitle = (TextView)findViewById(R.id.xmlSearchTitle);
         mSearchListView = (ListView)findViewById(R.id.xmlSearchListView);
         mToolbar = getSupportActionBar();
+        mHelper = DBSQLiteOpenHelper.getInstance(MainActivity.this);
 
         mToolbar.setTitle("");
         mPrefs = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -76,28 +78,9 @@ public class MainActivity extends AppCompatActivity {
         mFFBRosterArrayAdapterB.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mRosterBSpinner.setAdapter(mFFBRosterArrayAdapterB);
 
-        //Instantiate a singleton database with a getInstance method, instead of a normal constructor
-        mHelper = DBSQLiteOpenHelper.getInstance(MainActivity.this);
-        mCursor = mHelper.getPlayerList();
-
-        //Using the DBhelper's open database connection, cursor adapter displays database search results
-        mCursorAdapter = new CursorAdapter(MainActivity.this,mCursor,0) {
-            @Override
-            public View newView(Context context, Cursor cursor, ViewGroup parent) {
-                return LayoutInflater.from(context).inflate(R.layout.roster_entry,parent,false);
-            }
-            @Override
-            public void bindView(View view, Context context, Cursor cursor) {
-                TextView name = (TextView)view.findViewById(R.id.xmlPlayerName);
-                TextView pos = (TextView)view.findViewById(R.id.xmlPlayerPos);
-                TextView team = (TextView)view.findViewById(R.id.xmlPlayerTeam);
-                name.setText(cursor.getString(cursor.getColumnIndex(mHelper.COL_NAME)));
-                pos.setText(cursor.getString(cursor.getColumnIndex(mHelper.COL_POSITION)));
-                team.setText(cursor.getString(cursor.getColumnIndex(mHelper.COL_TEAM)));
-            }
-        };
-        mSearchListView.setAdapter(mCursorAdapter);
-        mSearchListView.setTextFilterEnabled(true);
+        //AsyncTask used to populate player list from database and setup adapter with it
+        StartUpTask startUpTask = new StartUpTask();
+        startUpTask.execute();
 
         //OnItemClick listener aligns Search result list-clicks with database items by moving
         // cursor accordingly, and passing the selected player's id to the Details Activity
@@ -153,8 +136,8 @@ public class MainActivity extends AppCompatActivity {
         mSearchTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCursor = mHelper.getPlayerList();
-                mCursorAdapter.swapCursor(mCursor);
+                ResetPlayerListTask resetPlayerListTask = new ResetPlayerListTask();
+                resetPlayerListTask.execute();
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.toastResetSearch), Toast.LENGTH_SHORT).show();
             }
         });
@@ -183,12 +166,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (TextUtils.isEmpty(newText)) {
-                    mCursor = mHelper.getPlayerList();
-                    mCursorAdapter.swapCursor(mCursor);
+                    ResetPlayerListTask resetPlayerListTask = new ResetPlayerListTask();
+                    resetPlayerListTask.execute();
                 }
                 else {
-                    mCursor = mHelper.searchPlayerByNameTeamPosition(newText);
-                    mCursorAdapter.swapCursor(mCursor);
+                    SearchByNamePositionTeamTask searchByNamePositionTeamTask = new SearchByNamePositionTeamTask();
+                    searchByNamePositionTeamTask.execute(newText);
                 }
                 return true;
             }
@@ -199,11 +182,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if(id==R.id.xmlActionBarShare){
-            Toast.makeText(MainActivity.this, "Draft results posted online!", Toast.LENGTH_SHORT).show();
-        }
-
+        if(id==R.id.xmlActionBarShare){Toast.makeText(MainActivity.this, "Draft results posted online!", Toast.LENGTH_SHORT).show();}
         return super.onOptionsItemSelected(item);
     }
 
@@ -215,11 +194,11 @@ public class MainActivity extends AppCompatActivity {
     public void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            mCursor = mHelper.searchPlayerByNameTeamPosition(query);
-            mCursorAdapter.swapCursor(mCursor);
+            SearchByNamePositionTeamTask searchByNamePositionTeamTask = new SearchByNamePositionTeamTask();
+            searchByNamePositionTeamTask.execute(query);
         } else {
-            mCursor = mHelper.getPlayerList();
-            mCursorAdapter.swapCursor(mCursor);
+            ResetPlayerListTask resetPlayerListTask = new ResetPlayerListTask();
+            resetPlayerListTask.execute();
         }
     }
 
@@ -230,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        //Sequence of actions to execute if Player B drafts a player
+        //Sequence of actions to execute if Player A drafts a player
         if(requestCode == 1){
             if(resultCode == RESULT_OK){
                 int id = data.getIntExtra("id", -1);
@@ -279,8 +258,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 //Search results are reset
-                mCursor = mHelper.getPlayerList();
-                mCursorAdapter.swapCursor(mCursor);
+                ResetPlayerListTask resetPlayerListTask = new ResetPlayerListTask();
+                resetPlayerListTask.execute();
             }
         }
 
@@ -334,8 +313,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 //Search results are reset
-                mCursor = mHelper.getPlayerList();
-                mCursorAdapter.swapCursor(mCursor);
+                ResetPlayerListTask resetPlayerListTask = new ResetPlayerListTask();
+                resetPlayerListTask.execute();
             }
         }
 
@@ -351,8 +330,8 @@ public class MainActivity extends AppCompatActivity {
                 Player titleB = new Player("--Roster B--","","","",0);
                 FantasyFootballRosterB.getInstance().getFullRosterB().add(titleB);
 
-                mCursor = mHelper.getPlayerList();
-                mCursorAdapter.swapCursor(mCursor);
+                ResetPlayerListTask resetPlayerListTask = new ResetPlayerListTask();
+                resetPlayerListTask.execute();
 
                 mGameEngineTitle.setText(getResources().getString(R.string.GameFlipCoin));
                 mRequestCode = 0;
@@ -408,6 +387,66 @@ public class MainActivity extends AppCompatActivity {
         if(mRequestCode==3){
             Intent intent = new Intent(MainActivity.this, GameEngineActivity.class);
             startActivityForResult(intent,mRequestCode);
+        }
+    }
+
+    //AsyncTasks extended to handle database calls
+    public class SearchByNamePositionTeamTask extends AsyncTask<String,Void,Cursor>{
+        @Override
+        protected Cursor doInBackground(String... params) {
+            mCursor = mHelper.searchPlayerByNameTeamPosition(params[0]);
+            return mCursor;
+        }
+
+        @Override
+        protected void onPostExecute(Cursor mCursor) {
+            super.onPostExecute(mCursor);
+            mCursorAdapter.swapCursor(mCursor);
+        }
+    }
+    public class ResetPlayerListTask extends AsyncTask<Void,Void,Cursor>{
+        @Override
+        protected Cursor doInBackground(Void... params) {
+            //Instantiate a singleton database with a getInstance method, instead of a normal constructor
+            mCursor = mHelper.getPlayerList();
+            return mCursor;
+        }
+
+        @Override
+        protected void onPostExecute(Cursor mCursor) {
+            super.onPostExecute(mCursor);
+            mCursorAdapter.swapCursor(mCursor);
+        }
+    }
+    public class StartUpTask extends AsyncTask<Void,Void,Cursor>{
+        @Override
+        protected Cursor doInBackground(Void... params) {
+            //Instantiate a singleton database with a getInstance method, instead of a normal constructor
+            mCursor = mHelper.getPlayerList();
+            return mCursor;
+        }
+
+        @Override
+        protected void onPostExecute(Cursor mCursor) {
+            super.onPostExecute(mCursor);
+            //Using the DBhelper's open database connection, cursor adapter displays database search results
+            mCursorAdapter = new CursorAdapter(MainActivity.this,mCursor,0) {
+                @Override
+                public View newView(Context context, Cursor cursor, ViewGroup parent) {
+                    return LayoutInflater.from(context).inflate(R.layout.roster_entry,parent,false);
+                }
+                @Override
+                public void bindView(View view, Context context, Cursor cursor) {
+                    TextView name = (TextView)view.findViewById(R.id.xmlPlayerName);
+                    TextView pos = (TextView)view.findViewById(R.id.xmlPlayerPos);
+                    TextView team = (TextView)view.findViewById(R.id.xmlPlayerTeam);
+                    name.setText(cursor.getString(cursor.getColumnIndex(mHelper.COL_NAME)));
+                    pos.setText(cursor.getString(cursor.getColumnIndex(mHelper.COL_POSITION)));
+                    team.setText(cursor.getString(cursor.getColumnIndex(mHelper.COL_TEAM)));
+                }
+            };
+            mSearchListView.setAdapter(mCursorAdapter);
+            mSearchListView.setTextFilterEnabled(true);
         }
     }
 }
