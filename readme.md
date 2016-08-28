@@ -1,11 +1,11 @@
-# **Android Development Immersive Project 2**
-## **Title: Fantasy Football Simulator**
+# **Kwon Fantasy Football**
+## **Category: Fantasy Football Simulator**
 ## **Developer: Mike Kwon**
 
 
 #### Overview
 
-My second project is a Fantasy Football simulator that allows two users to find and save their favorite football players into their own fantasy rosters, which can then be used to play in a simulated fantasy football game.
+Fantasy Football simulator that allows two users to find and save their favorite football players into their own fantasy rosters, which can then be used to play in a simulated fantasy football game.
 
 ---
 

@@ -325,10 +325,12 @@ public class MainActivity extends AppCompatActivity {
                 FantasyFootballRosterA.getInstance().getFullRosterA().clear();
                 Player titleA = new Player("--Roster A--","","","",0);
                 FantasyFootballRosterA.getInstance().getFullRosterA().add(titleA);
+                mRosterASpinner.setSelection(0);
 
                 FantasyFootballRosterB.getInstance().getFullRosterB().clear();
                 Player titleB = new Player("--Roster B--","","","",0);
                 FantasyFootballRosterB.getInstance().getFullRosterB().add(titleB);
+                mRosterBSpinner.setSelection(0);
 
                 ResetPlayerListTask resetPlayerListTask = new ResetPlayerListTask();
                 resetPlayerListTask.execute();

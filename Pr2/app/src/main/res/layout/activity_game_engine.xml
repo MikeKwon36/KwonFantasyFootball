@@ -36,7 +36,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:text="TEAM A"/>
             <TextView
                 android:id="@+id/xmlScoreBoardTeamAScore"
@@ -99,7 +99,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:text="TEAM B"/>
             <TextView
                 android:id="@+id/xmlScoreBoardTeamBScore"
